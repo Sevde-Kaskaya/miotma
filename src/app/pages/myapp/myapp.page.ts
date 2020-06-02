@@ -51,7 +51,7 @@ export class MyappPage implements OnInit {
     this.router.navigate(['/myappdetails'], navigationExtras);*/
 
   }
-
+	// github test
   logOut() {
     console.log("MyAppLogOut")
     this.alertService.showLogOutAlert();
