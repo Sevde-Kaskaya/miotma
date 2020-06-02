@@ -1,0 +1,40 @@
+<ion-content fullscreen="true">
+  <ion-header collapse="condense">
+    <ion-button fill="clear" size="large" (click)="cancel()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" size="large" (click)="logOut()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-button>
+    <ion-title color="light">Widget</ion-title>
+  </ion-header>
+
+  <ion-content padding center text-center> 
+      <ion-item no-lines no-lines color="#0000" color="dark" *ngFor="let variable of variables" (click) = "selectVariable(variable.id)">
+        <ion-label>Variable: {{variable.name}}</ion-label>
+      </ion-item>
+    
+      <ion-item no-lines no-lines color="#0000" color="dark" *ngFor="let property of properties" (click) = "selectProp(property.id)">
+        <ion-label>Property: {{property.name}}, {{property.value}}</ion-label>
+      </ion-item>
+    
+   <!-- <ion-button shape="round" color="tertiary" expand="block" (click)="set()">Set</ion-button>
+
+    
+    <ion-list>  
+      <ion-item>
+        <ion-text color="medium">
+          <h4>
+            <ion-label position="stacked">Select {{title}}</ion-label>
+          </h4>
+          <ion-select class= "myCustomSelect" [(ngModel)]="a" interface="action-sheet">
+            <ion-select-option *ngFor="let variable of variables" value= {{variable.id}}>Var: {{variable.name}}</ion-select-option>
+          </ion-select>
+          <ion-select class= "myCustomSelect" [(ngModel)]="b" interface="action-sheet">
+            <ion-select-option *ngFor="let property of properties" value= {{property.id}}>Prop : {{property.name}}</ion-select-option>
+          </ion-select>
+        </ion-text>
+      </ion-item>
+    <ion-button shape="round" color="tertiary" expand="block" (click)="set()">Set</ion-button>
+    </ion-list>-->
+  </ion-content>

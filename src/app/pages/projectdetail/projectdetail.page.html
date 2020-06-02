@@ -1,0 +1,26 @@
+<ion-content fullscreen="true">
+  <ion-header collapse="condense">
+    <ion-button fill="clear" size="large" (click)="cancel()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" size="large" (click)="logOut()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-button>
+    <ion-title color="light">Project Detail</ion-title>
+  </ion-header>
+
+  <ion-content padding center text-center> 
+    <div class="ion-padding" >
+    <ion-card *ngIf = "graph">
+      <ion-card-content>
+        <canvas #lineCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+    <ion-card color="dark" *ngIf = "led">
+      <ion-card-header><ion-card-title  color="medium"><ion-label color="#0000">LED</ion-label></ion-card-title></ion-card-header>
+      <ion-card-content>
+        Property id: {{data3}}
+      </ion-card-content>
+    </ion-card>
+    </div>
+  </ion-content>

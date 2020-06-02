@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-item>
+    <ion-button (click)="cancel()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title color="light">Create Account</ion-title>
+  </ion-item>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <div id="email-div">
+      <ion-label color="light" position="floating">Email</ion-label>
+      <ion-input color="light" [(ngModel)]="user.name"></ion-input>
+    </div>
+  </ion-item>
+
+  <ion-item>
+    <div id="password-div">
+      <ion-label color="light" position="floating">Password</ion-label>
+      <ion-input color="light" [(ngModel)]="user.password"></ion-input>
+    </div>
+  </ion-item>
+
+  <div id="create-div">
+    <ion-button shape="round" type="submit" expand="block" color="success" (click)="create()">Create Account
+    </ion-button>
+  </div>
+
+
+</ion-content>

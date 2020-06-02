@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-item>
+    <ion-button (click)="cancel()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title color="light">New Project</ion-title>
+  </ion-item>
+</ion-header>
+
+<ion-content padding center text-center>
+  <ion-list>
+    <ion-item>
+      <ion-text color="medium">
+        <h4>
+          <ion-label position="floating">Project Name</ion-label>
+        </h4>
+        <ion-input [(ngModel)]="project.name"></ion-input>
+      </ion-text>
+    </ion-item>
+        
+    <ion-item>
+      <ion-text color="medium">
+        <h4>
+          <ion-label position="stacked">CHOOSE DEVICE<ion-text color="danger">*</ion-text>
+          </ion-label>
+        </h4>
+        <ion-select class= "myCustomSelect" [(ngModel)]="project.device" interface="action-sheet">
+          <ion-select-option   *ngFor="let device of devices" value= {{device.id}}>{{device.name}}</ion-select-option>
+        </ion-select>
+      </ion-text>
+    </ion-item>
+   
+    <div id= "create-div"> 
+      <ion-button shape="round" color="tertiary" expand="block" (click)="createProject()">Create Project</ion-button>
+    </div>
+  </ion-list>
+</ion-content>

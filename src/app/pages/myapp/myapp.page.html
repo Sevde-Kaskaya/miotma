@@ -1,0 +1,17 @@
+<ion-header collapse="condense">
+  <ion-button fill="clear" size="large" (click)="cancel()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-button>
+  <ion-title color="light">My App</ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-button shape="round" color="tertiary" expand="block" (click)="createApp()">
+    <ion-icon name="add-outline"></ion-icon>createApp
+  </ion-button>
+
+
+  <ion-item no-lines color="#0000" *ngFor="let app of app" (click)="goAppDetail(app.id)" >
+    <ion-label color="medium">{{app.name}}</ion-label>
+  </ion-item>
+</ion-content>

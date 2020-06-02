@@ -1,0 +1,26 @@
+<ion-content fullscreen="true">
+  <ion-header collapse="condense">
+    <ion-button fill="clear" size="large" (click)="logOut()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-button>
+    <ion-title color="light">Mobile Iot</ion-title>
+  </ion-header>
+
+  <ion-content padding center text-center>
+    <ion-list>
+      <div id="new-div">
+        <ion-button shape="round" color="tertiary" expand="block" (click)="createProject()">
+          <ion-icon name="add-outline"></ion-icon>New Project
+        </ion-button>
+        <ion-button shape="round" color="success" expand="block" href="/myapp">
+          My Apps
+        </ion-button>
+      </div>
+      <ion-item no-lines color="#0000">
+        <ion-label color="secondary" size="large">{{title}}</ion-label>
+      </ion-item>
+      <ion-item no-lines color="#0000" *ngFor="let project of projects" (click)="goProject(project)">
+        <ion-label color="medium">{{project.name}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>

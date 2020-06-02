@@ -1,0 +1,35 @@
+<ion-content fullscreen="true">
+  <ion-header collapse="condense">
+    <ion-button fill="clear" size="large" (click)="cancel()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title color="light">Create App</ion-title>
+  </ion-header>
+
+<ion-content padding center text-center>
+  <ion-item>
+    <ion-text color="medium">
+      <h4>
+        <ion-label position="floating">App Name</ion-label>
+      </h4>
+      <ion-input [(ngModel)]="app.name"></ion-input>
+    </ion-text>
+  </ion-item>
+
+  <ion-item no-lines color="#0000">
+    <ion-label color="secondary" size="large">Select Projects</ion-label>
+  </ion-item>
+  <ion-item no-lines color="#0000" *ngFor="let project of projects; let i = index" 
+  (ionChange)="select_eventOption($event.detail.checked,i)">
+    <ion-label color="primary">{{project.name}}</ion-label>
+   <ion-checkbox id="{{project.id}}"></ion-checkbox>
+  </ion-item>
+
+  <ion-list>
+    <div id="new-div">
+      <ion-button shape="round" color="success" expand="block"(click)="createApp()">
+        <ion-icon name="add-outline"></ion-icon>Create App
+      </ion-button>
+    </div>
+  </ion-list>
+</ion-content>

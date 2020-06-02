@@ -1,0 +1,410 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "a",
+      "password": "a"
+    },
+    {
+      "name": "b",
+      "password": "b",
+      "id": 2
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "name": "Prj 1",
+      "device": 1,
+      "detail": "{\"device_id\":1,\"properties_id\":2,\"widget_id\":1}"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "name": "Prj 2",
+      "device": 1,
+      "detail": ""
+    },
+    {
+      "id": 3,
+      "user_id": 2,
+      "name": "Prj 3",
+      "device": 2,
+      "detail": ""
+    },
+    {
+      "id": 4,
+      "user_id": 2,
+      "name": "Prj 4",
+      "device": 1,
+      "detail": ""
+    },
+    {
+      "name": "Prj 5",
+      "device": 1,
+      "user_id": 1,
+      "detail": "",
+      "id": 5
+    },
+    {
+      "device": 2,
+      "name": "prj 6",
+      "user_id": 1,
+      "detail": "",
+      "id": 6
+    }
+  ],
+  "device": [
+    {
+      "id": 1,
+      "name": "device 1",
+      "api": "api label",
+      "description": "",
+      "type_id": "1"
+    },
+    {
+      "id": 2,
+      "name": "device 2",
+      "api": "api label",
+      "description": "",
+      "type_id": "2"
+    }
+  ],
+  "type": [
+    {
+      "id": 1,
+      "name": "x",
+      "api": null,
+      "description": "",
+      "device_id": 0
+    },
+    {
+      "id": 2,
+      "name": "y",
+      "api": null,
+      "description": "",
+      "device_id": 0
+    }
+  ],
+  "variable": [
+    {
+      "id": 1,
+      "name": "xA",
+      "api": null,
+      "description": "",
+      "range": 0,
+      "unit": "",
+      "device_id": 0,
+      "type_id": 1
+    },
+    {
+      "id": 2,
+      "name": "xA",
+      "api": null,
+      "description": "",
+      "range": 0,
+      "unit": "",
+      "device_id": 1,
+      "type_id": 0
+    },
+    {
+      "id": 3,
+      "name": "yA",
+      "api": null,
+      "description": "",
+      "range": 0,
+      "unit": "",
+      "device_id": 0,
+      "type_id": 2
+    },
+    {
+      "id": 4,
+      "name": "yA",
+      "api": null,
+      "description": "",
+      "range": 0,
+      "unit": "",
+      "device_id": 1,
+      "type_id": 0
+    }
+  ],
+  "properties": [
+    {
+      "id": 1,
+      "name": "xA",
+      "key": null,
+      "description": "",
+      "format": 0,
+      "value": null,
+      "device_id": 0,
+      "type_id": 1
+    },
+    {
+      "id": 2,
+      "name": "xA",
+      "key": null,
+      "description": "",
+      "format": 0,
+      "value": "true",
+      "device_id": 1,
+      "type_id": 0
+    },
+    {
+      "id": 3,
+      "name": "yA",
+      "key": null,
+      "description": "",
+      "format": 0,
+      "value": null,
+      "device_id": 0,
+      "type_id": 2
+    },
+    {
+      "id": 4,
+      "name": "yA",
+      "key": null,
+      "description": "",
+      "format": 0,
+      "value": "false",
+      "device_id": 1,
+      "type_id": 0
+    }
+  ],
+  "data": [
+    {
+      "id": 1,
+      "variable_id": 2,
+      "value": "30",
+      "type": null,
+      "created_at": "2020-01-01 00:00:01"
+    },
+    {
+      "id": 2,
+      "variable_id": 2,
+      "value": "25",
+      "type": null,
+      "created_at": "2020-01-02 00:01:00"
+    },
+    {
+      "id": 3,
+      "variable_id": 2,
+      "value": "20",
+      "type": null,
+      "created_at": "2020-01-03 00:10:00"
+    },
+    {
+      "id": 4,
+      "variable_id": 4,
+      "value": "10",
+      "type": null,
+      "created_at": "2020-05-20 15:30:00"
+    },
+    {
+      "id": 5,
+      "variable_id": 4,
+      "value": "15",
+      "type": null,
+      "created_at": "2020-05-21 20:00:00"
+    },
+    {
+      "id": 6,
+      "variable_id": 4,
+      "value": "20",
+      "type": null,
+      "created_at": "2020-05-22 09:45:00"
+    },
+    {
+      "id": 7,
+      "variable_id": 4,
+      "value": "25",
+      "type": null,
+      "created_at": "2020-05-23 00:30:00"
+    }
+  ],
+  "app_projects": [
+    {
+      "id": 1,
+      "app_id": 1,
+      "project_id": 1
+    },
+    {
+      "id": 2,
+      "app_id": 1,
+      "project_id": 5
+    },
+    {
+      "id": 3,
+      "app_id": 1,
+      "project_id": 6
+    },
+    {
+      "id": 4,
+      "app_id": 2,
+      "project_id": 2
+    },
+    {
+      "id": 5,
+      "app_id": 2,
+      "project_id": 4
+    },
+    {
+      "id": 6,
+      "app_id": 2,
+      "project_id": 6
+    },
+    {
+      "id": 7,
+      "app_id": 3,
+      "project_id": 3
+    },
+    {
+      "app_id": 7,
+      "project_id": 1,
+      "id": 8
+    },
+    {
+      "app_id": 7,
+      "project_id": 5,
+      "id": 9
+    },
+    {
+      "app_id": 8,
+      "project_id": 1,
+      "id": 10
+    },
+    {
+      "app_id": 8,
+      "project_id": 5,
+      "id": 11
+    },
+    {
+      "app_id": 9,
+      "project_id": 1,
+      "id": 12
+    },
+    {
+      "app_id": 9,
+      "project_id": 6,
+      "id": 13
+    }
+  ],
+  "app": [
+    {
+      "id": 1,
+      "name": "app1",
+      "user_id": 1
+    },
+    {
+      "id": 2,
+      "name": "app2",
+      "user_id": 1
+    },
+    {
+      "id": 3,
+      "name": "app3",
+      "user_id": 2
+    },
+    {
+      "name": "app4",
+      "user_id": 1,
+      "id": 4
+    },
+    {
+      "name": "Test App",
+      "user_id": 1,
+      "id": 5
+    },
+    {
+      "name": "app sevde",
+      "user_id": 4,
+      "id": 6
+    },
+    {
+      "name": "test11",
+      "user_id": 1,
+      "id": 7
+    },
+    {
+      "name": "name",
+      "user_id": 1,
+      "id": 8
+    },
+    {
+      "name": "name2",
+      "user_id": 1,
+      "id": 9
+    }
+  ],
+  "detail": [
+    {
+      "id": 1,
+      "widget_id": 1,
+      "properties_id": 2,
+      "device_id": 1
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 2
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 4
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 17
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 18
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 19
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 4,
+      "id": 20
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 21
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 22
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 24
+    },
+    {
+      "id": 25
+    },
+    {
+      "widget_id": 1,
+      "device_id": 1,
+      "properties_id": 2,
+      "id": 26
+    }
+  ]
+}
