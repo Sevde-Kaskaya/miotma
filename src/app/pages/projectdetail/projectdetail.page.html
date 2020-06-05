@@ -11,15 +11,15 @@
 
   <ion-content padding center text-center> 
     <div class="ion-padding" >
-    <ion-card *ngIf = "graph">
+    <ion-card *ngFor = "let variable_data of project_var">
       <ion-card-content>
         <canvas #lineCanvas></canvas>
       </ion-card-content>
     </ion-card>
-    <ion-card color="dark" *ngIf = "led">
+    <ion-card color="dark" *ngFor = "let property_data of project_prop">
       <ion-card-header><ion-card-title  color="medium"><ion-label color="#0000">LED</ion-label></ion-card-title></ion-card-header>
       <ion-card-content>
-        Property id: {{data3}}
+        {{property_data}}
       </ion-card-content>
     </ion-card>
     </div>

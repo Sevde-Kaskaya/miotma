@@ -17,9 +17,9 @@ export class DetailService {
     })
   }
 
-  getDetail(detail): Observable<Detail[]> {
+  getDetail(prj_id): Observable<Detail[]> {
     return this.http
-    .get<Detail[]>(this.path + "?prj_id="+detail.prj_id)
+    .get<Detail[]>(this.path + "?project_id="+ prj_id)
     .pipe(
       tap(data =>console.log(JSON.stringify)),
       catchError(this.handleError)

@@ -17,7 +17,7 @@
       "user_id": 1,
       "name": "Prj 1",
       "device": 1,
-      "detail": "{\"device_id\":1,\"properties_id\":2,\"widget_id\":1}"
+      "detail": "{\"device_id\":1,\"id\":0,\"properties_id\":2,\"widget_id\":1}"
     },
     {
       "id": 2,
@@ -341,70 +341,43 @@
       "id": 1,
       "widget_id": 1,
       "properties_id": 2,
-      "device_id": 1
+      "variable_id": 0,
+      "project_id": 5
     },
     {
       "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 2,
+      "properties_id": 4,
+      "variable_id": 0,
+      "project_id": 5,
       "id": 2
     },
     {
-      "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 2,
+      "widget_id": 2,
+      "properties_id": 0,
+      "variable_id": 2,
+      "project_id": 5,
+      "id": 3
+    },
+    {
+      "widget_id": 2,
+      "properties_id": 0,
+      "variable_id": 4,
+      "project_id": 5,
       "id": 4
     },
     {
-      "widget_id": 1,
-      "device_id": 1,
+      "variable_id": 2,
+      "properties_id": 0,
+      "widget_id": 2,
+      "project_id": 6,
+      "id": 7
+    },
+    {
+      "variable_id": 0,
       "properties_id": 2,
-      "id": 17
-    },
-    {
       "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 2,
-      "id": 18
-    },
-    {
-      "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 2,
-      "id": 19
-    },
-    {
-      "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 4,
-      "id": 20
-    },
-    {
-      "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 2,
-      "id": 21
-    },
-    {
-      "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 2,
-      "id": 22
-    },
-    {
-      "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 2,
-      "id": 24
-    },
-    {
-      "id": 25
-    },
-    {
-      "widget_id": 1,
-      "device_id": 1,
-      "properties_id": 2,
-      "id": 26
+      "project_id": 6,
+      "id": 8
     }
   ]
 }

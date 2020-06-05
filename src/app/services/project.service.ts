@@ -38,16 +38,6 @@ export class ProjectService {
     )
   }
 
-  getDeviceProject(device_id): Observable<Project[]> {
-    return this.http
-    .get<Project[]>(this.path + "?device="+ device_id) 
-    .pipe(
-      tap(data =>console.log(JSON.stringify)),
-      catchError(this.handleError)
-    )
-  }
-
-
   createProject(project): Observable<Project>{
     return this.http
     .post<Project>(this.path, JSON.stringify(project), this.httpOptions)
@@ -57,9 +47,9 @@ export class ProjectService {
     )
   }
 
-  updateProject(prj_id, prj): Observable<Project> {
+  updateProject(prj): Observable<Project> {
     return this.http
-      .put<Project>(this.path + '/' + prj_id, JSON.stringify(prj), this.httpOptions)
+      .put<Project>(this.path + '/' + prj.id, JSON.stringify(prj), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

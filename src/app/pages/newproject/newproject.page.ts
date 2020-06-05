@@ -44,7 +44,7 @@ export class NewprojectPage implements OnInit {
 
   createProject() {
     this.project.user_id = this.user_id
-    this.project.detail = ""
+    //this.project.detail = ""
     this.projectService.createProject(this.project).subscribe((response) => {
       this.alertService.presentToast("Project created..");
       this.projectService.created();

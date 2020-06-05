@@ -9,7 +9,7 @@ import { VariableService } from 'src/app/services/variable.service';
 import { Variable } from 'src/app/models/variable';
 import { DetailService } from 'src/app/services/detail.service';
 import { ProjectService } from 'src/app/services/project.service';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-widget',
@@ -18,30 +18,18 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 })
 export class WidgetPage implements OnInit {
 
-  property: Properties;
-  properties: Properties[];
-  projects: Project[];
-  prj: Project;
-
   user_id: number;
   prj_id: number;
   device_id: number;
-  widget: number;
-  var: boolean = false;
-  prop: boolean = false;
+  //projects: Project[];
+
+  properties: Properties[];
   variables: Variable[];
 
-  properties_id: number;
   title: string;
-  a: number;
-  b: number;
-
-  sDetail: Detail;
-  strDetail: string;
   detail: Detail;
-  var_id: number;
-
   data: any;
+  i: number = 0;
 
   constructor(
     public navParams: NavParams,
@@ -51,14 +39,15 @@ export class WidgetPage implements OnInit {
     private variableService: VariableService,
     private propertiesService: PropertiesService,
     private detailService: DetailService,
-    private projectService: ProjectService,
     private route: ActivatedRoute,
     private router: Router) {
 
-    this.detail = new Detail();
     this.user_id = Number(localStorage.getItem("user_id"));
     this.prj_id = Number(localStorage.getItem("project_id"));
     this.device_id = Number(localStorage.getItem("device_id"));
+
+    localStorage.setItem("led_id", String(1))
+    localStorage.setItem("graphic_id", String(2))
 
     console.log("widget page device id:" + this.device_id)
   }
@@ -68,19 +57,17 @@ export class WidgetPage implements OnInit {
   }
 
   ionViewWillEnter() {
-
     this.route.queryParams.subscribe(params => {
       if (params && params.widget) {
         this.data = JSON.parse(params.widget);
       }
-
-      if (this.data == 1) {
+      if (this.data == Number(localStorage.getItem("led_id"))) { //LED
         this.title = "Property"
         this.propertiesService.getProperty(this.device_id).subscribe((data) => {
           this.properties = data;
         })
       }
-      if (this.data == 2) {
+      if (this.data == Number(localStorage.getItem("graphic_id"))) { //GRAPHIC
         this.title = "Variable"
         this.variableService.getVariable(this.device_id).subscribe((data) => {
           this.variables = data;
@@ -90,52 +77,50 @@ export class WidgetPage implements OnInit {
   }
 
   selectProp(prop_id) {
-    this.properties_id = prop_id
-
-    this.projectService.getProject(this.prj_id).subscribe((data) => {
-      this.projects = data
-
-      this.detail.device_id = this.device_id;
-      //this.detail.id = 2;
-      this.detail.properties_id = prop_id;
-      this.detail.widget_id = 1;
-
-      this.strDetail = JSON.stringify(this.detail)
-      this.projects[0].detail = this.strDetail
-
-      this.projectService.updateProject(this.prj_id, this.projects[0]).subscribe((data) => {
-        console.log(data)
-      })
-
-    });
-
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        prop_id: JSON.stringify(prop_id)
-      }
-    };
-    this.router.navigate(['projectdetail'], navigationExtras);
+    this.addDetail(Number(localStorage.getItem("led_id")), 0, prop_id);
+    localStorage.setItem("prop_id", prop_id)
+    this.router.navigate(['projectdetail']);
   }
 
   selectVariable(var_id) {
-    this.var_id = var_id
-    console.log("selected variable id= " + var_id)
+    this.addDetail(Number(localStorage.getItem("graphic_id")), var_id, 0);
+    this.router.navigate(['projectdetail']);
+  }
 
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        var_id: JSON.stringify(var_id)
-      }
-    };
-    this.router.navigate(['projectdetail'], navigationExtras);
+  addDetail(widget_id, var_id, prop_id) {
+    this.detail = new Detail();
+    this.detail.variable_id = var_id;
+    this.detail.properties_id = prop_id;
+    this.detail.widget_id = widget_id;
+    this.detail.prj_id = this.prj_id; //normalde bu yok
+    console.log(this.detail)
+
+    this.detailService.createDetail(this.detail).subscribe((data) => { //DETAY TABLOSUNA DETAYI KAYDETMEK
+      console.log(data)
+    });
+
+       /* PROJE TABLOSUNA DETAYI KAYDETMEK (TAM ÇALIŞMIYOR)
+       this.detailService.createDetail(this.detail).subscribe((response) => {
+
+      this.projectService.getProject(this.prj_id).subscribe((data) => {
+        this.projects = data
+    
+        this.projects[0].detail[this.i] = response
+        console.log("i: " + this.i)
+        this.i = this.i+1;
+        this.projectService.updateProject(this.projects[0]).subscribe((data) => {
+          console.log(data)
+        })
+  
+      });
+    })
+*/
   }
 
   logOut() {
     this.alertService.showLogOutAlert();
   }
-
   cancel() {
     this.navCtrl.navigateForward('/home');
   }
-
-
 }
