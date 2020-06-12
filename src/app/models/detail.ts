@@ -3,5 +3,5 @@ export class Detail {
     widget_id: number;
     properties_id: number;
     variable_id: number;
-    prj_id: number; //normalde bu yok
+    project_id: number; //normalde bu yok
 }

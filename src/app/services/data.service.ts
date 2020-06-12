@@ -18,13 +18,21 @@ export class DataService {
     })
   }
 
-  getVariableData(variable_id): Observable<Data[]> {
+  getVariableData2(variable_id): Observable<Data[]> {
     return this.http
     .get<Data[]>(this.path + "?variable_id="+ variable_id)
     .pipe(
       tap(data =>console.log(JSON.stringify)),
       catchError(this.handleError)
     )
+  }
+
+  async getVariableData(variable_id){
+    return this.http
+    .get<Data[]>(this.path + "?variable_id="+ variable_id)
+    .pipe(
+      catchError(this.handleError)
+    ).toPromise();
   }
 
   handleError(err: HttpErrorResponse) {

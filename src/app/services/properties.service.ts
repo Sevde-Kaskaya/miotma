@@ -28,14 +28,32 @@ export class PropertiesService {
     )
   }
 
-  getPropertywithId(prop_id): Observable<Properties[]> {
+  getPropertywithId2(prop_id): Observable<Properties> {
     return this.http
-    .get<Properties[]>(this.path + "?id="+ prop_id) 
+    .get<Properties>(this.path + "?id="+ prop_id) 
     .pipe(
       tap(data =>console.log(JSON.stringify)),
       catchError(this.handleError)
     )
   }
+
+  updateProperty(prop): Observable<Project> {
+    return this.http
+      .put<Project>(this.path + '/' + prop.id, JSON.stringify(prop), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  async getPropertywithId(prop_id){
+    return this.http
+    .get<Properties>(this.path + "?id="+ prop_id) 
+    .pipe(
+      catchError(this.handleError)
+    ).toPromise();
+  }
+
 
   handleError(err: HttpErrorResponse) {
     let errMessage = "";

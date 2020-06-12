@@ -17,8 +17,6 @@ export class NewprojectPage implements OnInit {
   devices: Device[];
   project: Project;
   user_id: number;
-  device: Device;
-  device_id: number;
 
   constructor(
     private navCtrl: NavController,
@@ -44,7 +42,6 @@ export class NewprojectPage implements OnInit {
 
   createProject() {
     this.project.user_id = this.user_id
-    //this.project.detail = ""
     this.projectService.createProject(this.project).subscribe((response) => {
       this.alertService.presentToast("Project created..");
       this.projectService.created();

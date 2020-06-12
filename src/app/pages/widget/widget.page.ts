@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { NavController, MenuController, NavParams } from '@ionic/angular';
 import { Detail } from 'src/app/models/detail';
-import { Project } from 'src/app/models/project';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Properties } from 'src/app/models/properties';
 import { VariableService } from 'src/app/services/variable.service';
 import { Variable } from 'src/app/models/variable';
 import { DetailService } from 'src/app/services/detail.service';
-import { ProjectService } from 'src/app/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -18,18 +16,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class WidgetPage implements OnInit {
 
-  user_id: number;
   prj_id: number;
   device_id: number;
-  //projects: Project[];
-
-  properties: Properties[];
-  variables: Variable[];
-
   title: string;
   detail: Detail;
   data: any;
   i: number = 0;
+
+  variables: Variable[];
+  properties: Properties[];
+  property: Properties;
+  choose_prop : number;
+  choose_color: string;
 
   constructor(
     public navParams: NavParams,
@@ -42,7 +40,6 @@ export class WidgetPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router) {
 
-    this.user_id = Number(localStorage.getItem("user_id"));
     this.prj_id = Number(localStorage.getItem("project_id"));
     this.device_id = Number(localStorage.getItem("device_id"));
 
@@ -76,9 +73,16 @@ export class WidgetPage implements OnInit {
     });
   }
 
-  selectProp(prop_id) {
-    this.addDetail(Number(localStorage.getItem("led_id")), 0, prop_id);
-    localStorage.setItem("prop_id", prop_id)
+
+  async selectProp() {
+      this.property = await this.propertiesService.getPropertywithId(this.choose_prop);
+      this.property[0].description = this.choose_color
+      console.log(this.property)
+      this.data = await this.propertiesService.updateProperty(this.property[0])
+        console.log(this.data)
+    
+    this.addDetail(Number(localStorage.getItem("led_id")), 0, this.choose_prop);
+    console.log("id: " + this.choose_prop + ", color: "+ this.choose_color)
     this.router.navigate(['projectdetail']);
   }
 
@@ -89,32 +93,14 @@ export class WidgetPage implements OnInit {
 
   addDetail(widget_id, var_id, prop_id) {
     this.detail = new Detail();
-    this.detail.variable_id = var_id;
-    this.detail.properties_id = prop_id;
+    this.detail.variable_id = Number(var_id);
+    this.detail.properties_id = Number(prop_id);
     this.detail.widget_id = widget_id;
-    this.detail.prj_id = this.prj_id; //normalde bu yok
+    this.detail.project_id = this.prj_id;
     console.log(this.detail)
-
-    this.detailService.createDetail(this.detail).subscribe((data) => { //DETAY TABLOSUNA DETAYI KAYDETMEK
-      console.log(data)
-    });
-
-       /* PROJE TABLOSUNA DETAYI KAYDETMEK (TAM ÇALIŞMIYOR)
-       this.detailService.createDetail(this.detail).subscribe((response) => {
-
-      this.projectService.getProject(this.prj_id).subscribe((data) => {
-        this.projects = data
-    
-        this.projects[0].detail[this.i] = response
-        console.log("i: " + this.i)
-        this.i = this.i+1;
-        this.projectService.updateProject(this.projects[0]).subscribe((data) => {
-          console.log(data)
-        })
-  
-      });
-    })
-*/
+    this.detailService.createDetail(this.detail).subscribe((response) => {
+      console.log(response)
+  });
   }
 
   logOut() {

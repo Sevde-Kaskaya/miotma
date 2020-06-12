@@ -5,5 +5,4 @@ export class Project {
     user_id: number;
     name: string;
     device: number;
-    detail: Detail[];
 }
