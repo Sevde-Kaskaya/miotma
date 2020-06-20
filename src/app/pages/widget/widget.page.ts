@@ -27,7 +27,10 @@ export class WidgetPage implements OnInit {
   properties: Properties[];
   property: Properties;
   choose_prop : number;
+  choose_var: number;
   choose_color: string;
+  prop:boolean = false;
+  var:boolean = false;
 
   constructor(
     public navParams: NavParams,
@@ -54,21 +57,19 @@ export class WidgetPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(async params => {
       if (params && params.widget) {
         this.data = JSON.parse(params.widget);
       }
       if (this.data == Number(localStorage.getItem("led_id"))) { //LED
-        this.title = "Property"
-        this.propertiesService.getProperty(this.device_id).subscribe((data) => {
-          this.properties = data;
-        })
+        this.var = false
+        this.prop = true
+        this.properties = await this.propertiesService.getProperty(this.device_id)
       }
       if (this.data == Number(localStorage.getItem("graphic_id"))) { //GRAPHIC
-        this.title = "Variable"
-        this.variableService.getVariable(this.device_id).subscribe((data) => {
-          this.variables = data;
-        })
+        this.prop = false
+        this.var = true
+        this.variables = await this.variableService.getVariable(this.device_id)
       }
     });
   }
@@ -86,8 +87,8 @@ export class WidgetPage implements OnInit {
     this.router.navigate(['projectdetail']);
   }
 
-  selectVariable(var_id) {
-    this.addDetail(Number(localStorage.getItem("graphic_id")), var_id, 0);
+  selectVariable() {
+    this.addDetail(Number(localStorage.getItem("graphic_id")), this.choose_var, 0);
     this.router.navigate(['projectdetail']);
   }
 

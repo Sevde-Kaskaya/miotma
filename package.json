@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^9.1.11",
     "@angular/common": "~8.2.14",
     "@angular/core": "~8.2.14",
     "@angular/forms": "~8.2.14",
@@ -25,10 +26,14 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "@types/jest": "^25.2.3",
+    "animate.css": "^4.1.0",
+    "animate.min.css": "0.0.3",
     "core-js": "^2.5.4",
+    "css-animator": "^2.3.1",
     "node-sass": "^4.14.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
+    "web-animations-js": "^2.3.2",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

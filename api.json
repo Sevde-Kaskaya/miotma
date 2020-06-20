@@ -140,7 +140,7 @@
       "id": 1,
       "name": "xA",
       "key": null,
-      "description": "green",
+      "description": null,
       "format": 0,
       "value": null,
       "device_id": 0,
@@ -150,7 +150,7 @@
       "id": 2,
       "name": "xA",
       "key": null,
-      "description": "red",
+      "description": "dark",
       "format": 0,
       "value": "true",
       "device_id": 1,
@@ -160,9 +160,9 @@
       "id": 3,
       "name": "yA",
       "key": null,
-      "description": "blue",
+      "description": null,
       "format": 0,
-      "value": null,
+      "value": "false",
       "device_id": 0,
       "type_id": 2
     },
@@ -170,7 +170,7 @@
       "id": 4,
       "name": "yA",
       "key": null,
-      "description": "yellow",
+      "description": "light",
       "format": 0,
       "value": "false",
       "device_id": 1,
@@ -372,25 +372,11 @@
       "id": 4
     },
     {
-      "variable_id": 2,
-      "properties_id": 0,
-      "widget_id": 2,
-      "project_id": 6,
-      "id": 7
-    },
-    {
-      "variable_id": 0,
-      "properties_id": 2,
-      "widget_id": 1,
-      "project_id": 6,
-      "id": 8
-    },
-    {
       "variable_id": 0,
       "properties_id": 2,
       "widget_id": 1,
       "project_id": 5,
-      "id": 11
+      "id": 5
     }
   ]
 }

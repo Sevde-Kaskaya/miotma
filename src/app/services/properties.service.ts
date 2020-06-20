@@ -19,31 +19,12 @@ export class PropertiesService {
     })
   }
 
-  getProperty(device_id): Observable<Properties[]> {
+  async getProperty(device_id){
     return this.http
     .get<Properties[]>(this.path + "?device_id="+ device_id) 
     .pipe(
-      tap(data =>console.log(JSON.stringify)),
       catchError(this.handleError)
-    )
-  }
-
-  getPropertywithId2(prop_id): Observable<Properties> {
-    return this.http
-    .get<Properties>(this.path + "?id="+ prop_id) 
-    .pipe(
-      tap(data =>console.log(JSON.stringify)),
-      catchError(this.handleError)
-    )
-  }
-
-  updateProperty(prop): Observable<Project> {
-    return this.http
-      .put<Project>(this.path + '/' + prop.id, JSON.stringify(prop), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
+    ).toPromise();
   }
 
   async getPropertywithId(prop_id){
@@ -53,7 +34,13 @@ export class PropertiesService {
       catchError(this.handleError)
     ).toPromise();
   }
-
+  async updateProperty(prop) {
+    return this.http
+      .put<Properties>(this.path + '/' + prop.id, JSON.stringify(prop), this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      ).toPromise();
+  }
 
   handleError(err: HttpErrorResponse) {
     let errMessage = "";

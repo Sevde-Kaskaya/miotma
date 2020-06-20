@@ -19,13 +19,12 @@ export class VariableService {
     })
   }
 
-  getVariable(device_id): Observable<Variable[]> {
+  async getVariable(device_id){
     return this.http
     .get<Variable[]>(this.path + "?device_id="+ device_id) 
     .pipe(
-      tap(data =>console.log(JSON.stringify)),
       catchError(this.handleError)
-    )
+    ).toPromise();
   }
 
   handleError(err: HttpErrorResponse) {

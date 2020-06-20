@@ -17,15 +17,6 @@ export class DetailService {
     })
   }
 
-  getDetail2(prj_id): Observable<Detail[]> {
-    return this.http
-    .get<Detail[]>(this.path + "?project_id="+ prj_id)
-    .pipe(
-      tap(data =>console.log(JSON.stringify)),
-      catchError(this.handleError)
-    )
-  }
-
   async getDetail(prj_id){
     return this.http
       .get<Detail[]>(this.path + "?project_id=" + prj_id)
@@ -33,7 +24,6 @@ export class DetailService {
         catchError(this.handleError)
       ).toPromise()
   }
-
 
   createDetail(detail): Observable<Detail>{
     return this.http
