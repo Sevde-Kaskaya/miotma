@@ -11,7 +11,7 @@
   </ion-button>
 
 
-  <ion-item no-lines color="#0000" *ngFor="let app of app" (click)="goAppDetail(app.id)" >
+  <ion-item no-lines color="#0000" *ngFor="let app of app" (click)="goAppDetail(app)" >
     <ion-label color="medium">{{app.name}}</ion-label>
   </ion-item>
 </ion-content>
