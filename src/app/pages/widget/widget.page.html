@@ -10,31 +10,53 @@
   </ion-header>
 
   <ion-content padding center text-center> 
-      <ion-item no-lines no-lines color="#0000" color="dark" *ngFor="let variable of variables" (click) = "selectVariable(variable.id)">
-        <ion-label>Variable: {{variable.name}}</ion-label>
-      </ion-item>
-    
-      <ion-item no-lines no-lines color="#0000" color="dark" *ngFor="let property of properties" (click) = "selectProp(property.id)">
-        <ion-label>Property: {{property.name}}, {{property.value}}</ion-label>
-      </ion-item>
-    
-   <!-- <ion-button shape="round" color="tertiary" expand="block" (click)="set()">Set</ion-button>
-
-    
-    <ion-list>  
-      <ion-item>
+   <ion-item *ngIf="variables">
         <ion-text color="medium">
           <h4>
-            <ion-label position="stacked">Select {{title}}</ion-label>
+            <ion-label position="stacked">CHOOSE GRAPHIC VALUE<ion-text color="danger">*</ion-text>
+            </ion-label>
           </h4>
-          <ion-select class= "myCustomSelect" [(ngModel)]="a" interface="action-sheet">
-            <ion-select-option *ngFor="let variable of variables" value= {{variable.id}}>Var: {{variable.name}}</ion-select-option>
+          <ion-select class= "myCustomSelect" [(ngModel)]="choose_var" interface="action-sheet">
+            <ion-select-option   *ngFor="let variable of variables" value= {{variable.id}}> {{variable.name}}</ion-select-option>
           </ion-select>
-          <ion-select class= "myCustomSelect" [(ngModel)]="b" interface="action-sheet">
-            <ion-select-option *ngFor="let property of properties" value= {{property.id}}>Prop : {{property.name}}</ion-select-option>
+          <div> 
+            <ion-button shape="round" color="secondary" expand="block" (click)="selectVariable()">Add</ion-button>
+          </div>
+        </ion-text>
+      </ion-item>
+
+      <ion-item *ngIf="properties">
+        <ion-text color="medium">
+          <h4>
+            <ion-label position="stacked">CHOOSE LED VALUE<ion-text color="danger">*</ion-text>
+            </ion-label>
+          </h4>
+          <ion-select class= "myCustomSelect" [(ngModel)]="choose_prop" interface="action-sheet">
+            <ion-select-option *ngFor="let property of properties" value= {{property.id}}>{{property.name}}, {{property.value}}</ion-select-option>
           </ion-select>
         </ion-text>
       </ion-item>
-    <ion-button shape="round" color="tertiary" expand="block" (click)="set()">Set</ion-button>
-    </ion-list>-->
+        
+      <ion-item *ngIf="properties">
+        <ion-text color="medium">
+          <h4>
+            <ion-label position="stacked">CHOOSE COLOR for TRUE<ion-text color="danger">*</ion-text>
+            </ion-label>
+          </h4>
+          <ion-select class= "myCustomSelect" [(ngModel)]="choose_color" interface="action-sheet">
+            <ion-select-option value= "success"> Green </ion-select-option>
+            <ion-select-option value= "light"> White </ion-select-option>
+            <ion-select-option value= "danger"> Red </ion-select-option>
+            <ion-select-option value= "secondary"> Blue</ion-select-option>
+          </ion-select>
+        </ion-text>
+
+        <div> 
+          <ion-button shape="round" color="secondary" expand="block" (click)="selectProp()">Add</ion-button>
+        </div>
+      </ion-item>
+     
   </ion-content>
+      
+    
+ 

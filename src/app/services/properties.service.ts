@@ -19,22 +19,27 @@ export class PropertiesService {
     })
   }
 
-  getProperty(device_id): Observable<Properties[]> {
+  async getProperty(device_id){
     return this.http
     .get<Properties[]>(this.path + "?device_id="+ device_id) 
     .pipe(
-      tap(data =>console.log(JSON.stringify)),
       catchError(this.handleError)
-    )
+    ).toPromise();
   }
 
-  getPropertywithId(prop_id): Observable<Properties[]> {
+  async getPropertywithId(prop_id){
     return this.http
-    .get<Properties[]>(this.path + "?id="+ prop_id) 
+    .get<Properties>(this.path + "?id="+ prop_id) 
     .pipe(
-      tap(data =>console.log(JSON.stringify)),
       catchError(this.handleError)
-    )
+    ).toPromise();
+  }
+  async updateProperty(prop) {
+    return this.http
+      .put<Properties>(this.path + '/' + prop.id, JSON.stringify(prop), this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      ).toPromise();
   }
 
   handleError(err: HttpErrorResponse) {

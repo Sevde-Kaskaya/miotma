@@ -10,17 +10,17 @@
   </ion-header>
 
   <ion-content padding center text-center> 
-    <div class="ion-padding" >
-    <ion-card *ngIf = "graph">
-      <ion-card-content>
-        <canvas #lineCanvas></canvas>
-      </ion-card-content>
-    </ion-card>
-    <ion-card color="dark" *ngIf = "led">
-      <ion-card-header><ion-card-title  color="medium"><ion-label color="#0000">LED</ion-label></ion-card-title></ion-card-header>
-      <ion-card-content>
-        Property id: {{data3}}
-      </ion-card-content>
-    </ion-card>
+    <div class="ion-padding">
+        <ion-list shape="round"  *ngFor = "let property of property_data">
+      <ion-button (click)="toggleColor(property)" ion-button [color]="property.description">
+        <ion-label>LED  {{property.value}} </ion-label>
+      </ion-button>
+    </ion-list>
+
+
+    <ion-list  *ngFor = "let variable_data of project_var">
+      <canvas id = "a"></canvas>
+      <canvas id = "b"></canvas>
+    </ion-list>
     </div>
   </ion-content>

@@ -3,10 +3,11 @@ import { AlertService } from 'src/app/services/alert.service';
 import { NavController, MenuController, NavParams } from '@ionic/angular';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Properties } from 'src/app/models/properties';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { Data } from 'src/app/models/data';
 import { Chart } from 'chart.js';
+import { Detail } from 'src/app/models/detail';
+import { DetailService } from 'src/app/services/detail.service';
 
 @Component({
   selector: 'app-projectdetail',
@@ -16,131 +17,142 @@ import { Chart } from 'chart.js';
 })
 export class ProjectdetailPage implements OnInit {
   @ViewChild("lineCanvas",  {static: false}) lineCanvas: ElementRef;
-  
   user_id: number;
   prj_id: number;
-  device_id: number;
-  prop_id: number;
-  var_id: number;
+  details: Detail[];
 
-  property_data: Properties[];
+  labels: Array<string> = [];
+  chart_data: Array<number> = [];
+  lineChart: any;
+
   property: Properties;
 
-  property_id: number;
-
-  variable_data: Data[];
-  data: Data;
-
-  data2:any;
-  data3:any
-
-  labels: string[] = [];
-  chart_data:number[] =[];
-  private lineChart: Chart;
-
-  graph: boolean;
-  led: boolean;
+  property_data: Array<Properties> = new Array<Properties>()
+  variable_data: Array<Data> = new Array<Data>()
+  public project_prop: Array<number> = []
+  public project_var: Array<number> = []
 
   constructor(
     private alertService: AlertService,
     private navCtrl: NavController,
     public navParams: NavParams,
     private menuCtrl: MenuController,
-    private propertiesService: PropertiesService,
+    private detailService: DetailService,
     private dataService: DataService,
-    private route: ActivatedRoute, 
-    private router: Router) {
+    private propertiesService: PropertiesService) {
 
     this.user_id = Number(localStorage.getItem("user_id"));
     this.prj_id = Number(localStorage.getItem("project_id"));
-    this.device_id = Number(localStorage.getItem("device_id"));
-
     console.log("project id:" + this.prj_id)
-    console.log("detay device id:" + this.device_id)
 
   }
-
 
   ngOnInit() {
     this.menuCtrl.enable(true);
   }
-  
+
   ionViewWillEnter() {
-    this.variableData()
-
-    this.route.queryParams.subscribe(params => {
-      if (params && params.prop_id) {
-        this.data3 = JSON.parse(params.prop_id);
-      }
-      if(this.data3) {
-        this.led = true
-      }
-      })
+    this.showProjectDetail();
   }
 
-  variableData() {
- 
-    this.route.queryParams.subscribe(params => {
-      if (params && params.var_id) {
-        this.data2 = JSON.parse(params.var_id);
+  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+  async asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array)
+    }
+  }
+
+  name : string;
+l:number =0;
+names: string[];
+  async showProjectDetail(): Promise<void> {
+    this.details = await this.detailService.getDetail(this.prj_id)
+    console.log(this.details)
+    await this.asyncForEach(this.details, async (num) => {
+      await this.waitFor(50)
+      if (num.properties_id != 0) {
+        this.project_prop.push(num.properties_id)
+        this.property_data = new Array<Properties>();
+        for (let j = 0; j < this.project_prop.length; j++) {
+          await this.propertiesService.getPropertywithId(this.project_prop[j])
+          .then((result) =>  {
+            this.property = result[0]
+            this.property_data.push(this.property)
+          })
+        }
       }
-      
-      if (this.data2 != null) {
-        this.dataService.getVariableData(this.data2).subscribe((data) => {
-          this.graph = true
-          this.variable_data = data;
-          console.log(this.variable_data)
-          for(let i=0; i<this.variable_data.length; i++){
-            this.labels[i] = String(this.variable_data[i].created_at)
-            this.chart_data[i] = Number(this.variable_data[i].value) 
-          }
-    
-          this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-            type: "line",
-            data: {
-              labels: this.labels,
-              datasets: [
-                {
-                  label: "Device Data",
-                  fill: false,
-                  lineTension: 0.1,
-                  backgroundColor: "rgba(75,192,192,0.4)",
-                  borderColor: "rgba(75,192,192,1)",
-                  borderCapStyle: "butt",
-                  borderDash: [],
-                  borderDashOffset: 0.0,
-                  borderJoinStyle: "miter",
-                  pointBorderColor: "rgba(75,192,192,1)",
-                  pointBackgroundColor: "#fff",
-                  pointBorderWidth: 1,
-                  pointHoverRadius: 5,
-                  pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                  pointHoverBorderColor: "rgba(220,220,220,1)",
-                  pointHoverBorderWidth: 2,
-                  pointRadius: 1,
-                  pointHitRadius: 10,
-                  data: this.chart_data,
-                  spanGaps: false
+
+      if (num.variable_id != 0) {
+        this.project_var.push(num.variable_id)
+        this.variable_data = new Array<Data>();
+        this.variable_data = await this.dataService.getVariableData(num.variable_id)
+        console.log(this.variable_data)
+        this.labels = new Array<string>();
+        this.chart_data = new Array<number>(); 
+        for (let j = 0; j < this.variable_data.length; j++) {
+          this.labels[j] = this.variable_data[j].created_at
+          this.chart_data[j] = Number(this.variable_data[j].value)
+        }
+        this.names = ["a","b"]
+        //this.name = "a"
+        var ctx = document.getElementById(this.names[this.l]) //canvas
+          console.log(ctx)
+          var myChart = new Chart(ctx, {
+                type: "line",
+                data: {
+                  labels: this.labels,
+                  datasets: [
+                    {
+                      label: "variable "+num.variable_id,
+                      fill: false,
+                      lineTension: 0.1,
+                      backgroundColor: "rgba(75,192,192,0.4)",
+                      borderColor: "rgba(75,192,192,1)",
+                      borderCapStyle: "butt",
+                      borderDash: [],
+                      borderDashOffset: 0.0,
+                      borderJoinStyle: "miter",
+                      pointBorderColor: "rgba(75,192,192,1)",
+                      pointBackgroundColor: "#fff",
+                      pointBorderWidth: 1,
+                      pointHoverRadius: 5,
+                      pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                      pointHoverBorderColor: "rgba(220,220,220,1)",
+                      pointHoverBorderWidth: 2,
+                      pointRadius: 1,
+                      pointHitRadius: 10,
+                      data: this.chart_data,
+                      spanGaps: false
+                    }
+                  ]
                 }
-              ]
-            }
-          });
-        })
-         
-      
-      }
+              });
+      this.l++;
+    }
     })
+  }
   
-      
+  async toggleColor(property) {
+    var true_color = property.description
+      if( property.value === 'true') { 
+        property.description = 'light'
+        property.value = "false"
+        await this.propertiesService.updateProperty(property)
+        .then((result) => console.log(result))
+        
+      } else {
+        property.description  = 'dark'
+        property.value = "true"
+        await this.propertiesService.updateProperty(property)
+        .then((result) => console.log(result))
+      }
   }
-
-  logOut() {
-    this.alertService.showLogOutAlert();
-  }
-
-  cancel() {
-    this.navCtrl.navigateForward('/home');
-  }
-
+     
+    logOut() {
+      this.alertService.showLogOutAlert();
+    }
+    cancel() {
+      this.navCtrl.navigateForward('/home');
+    }
 
 }
