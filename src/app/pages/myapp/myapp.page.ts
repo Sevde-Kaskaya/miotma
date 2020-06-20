@@ -3,7 +3,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { NavController } from '@ionic/angular';
 import { MyappService } from 'src/app/services/myapp.service';
 import { Myapp } from '../../models/myapp';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { TransferService } from 'src/app/services/transfer.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class MyappPage implements OnInit {
 
   user_id: number;
   app: Myapp[];
+  myApp: Myapp;
 
   constructor(private alertService: AlertService,
     private navCtrl: NavController,
@@ -26,6 +27,10 @@ export class MyappPage implements OnInit {
   }
 
   ngOnInit() {
+   
+  }
+
+  ionViewWillEnter() {
     this.appLoad();
   }
 
@@ -38,20 +43,21 @@ export class MyappPage implements OnInit {
     //console.log(this.app);
   }
 
-  goAppDetail(app_id) {
-    this.transferService.setId(app_id);
+  goAppDetail(app) {
+    console.log(app)
+  /*  this.transferService.setId(app_id);
     let url = '/myappdetails/' + app_id
     this.router.navigateByUrl(url);
-
-    /*let navigationExtras: NavigationExtras = {
+*/
+    let navigationExtras: NavigationExtras = {
       queryParams: {
-        special: JSON.stringify(app_id)
+        myApp: JSON.stringify(app)
       }
     };
-    this.router.navigate(['/myappdetails'], navigationExtras);*/
+    this.router.navigate(['/myappdetails'], navigationExtras);
 
   }
-	// github test
+
   logOut() {
     console.log("MyAppLogOut")
     this.alertService.showLogOutAlert();
