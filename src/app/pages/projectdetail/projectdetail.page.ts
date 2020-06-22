@@ -16,8 +16,7 @@ import { DetailService } from 'src/app/services/detail.service';
   providers: [NavParams]
 })
 export class ProjectdetailPage implements OnInit {
-  @ViewChild("lineCanvas",  {static: false}) lineCanvas: ElementRef;
-  user_id: number;
+  
   prj_id: number;
   details: Detail[];
 
@@ -41,7 +40,6 @@ export class ProjectdetailPage implements OnInit {
     private dataService: DataService,
     private propertiesService: PropertiesService) {
 
-    this.user_id = Number(localStorage.getItem("user_id"));
     this.prj_id = Number(localStorage.getItem("project_id"));
     console.log("project id:" + this.prj_id)
 
@@ -94,7 +92,6 @@ names: string[];
           this.chart_data[j] = Number(this.variable_data[j].value)
         }
         this.names = ["a","b"]
-        //this.name = "a"
         var ctx = document.getElementById(this.names[this.l]) //canvas
           console.log(ctx)
           var myChart = new Chart(ctx, {
@@ -107,7 +104,7 @@ names: string[];
                       fill: false,
                       lineTension: 0.1,
                       backgroundColor: "rgba(75,192,192,0.4)",
-                      borderColor: "rgba(75,192,192,1)",
+                      borderColor: "rgba(75, 192,192,1)",
                       borderCapStyle: "butt",
                       borderDash: [],
                       borderDashOffset: 0.0,

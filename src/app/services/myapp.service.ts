@@ -71,16 +71,6 @@ export class MyappService {
     ).toPromise();
   }
 
-
-  getProject1(prj_id): Observable<Project> {
-    return this.http
-    .get<Project>(this.project_path + "?id="+ prj_id) 
-    .pipe(
-      tap(data =>console.log(JSON.stringify)),
-      catchError(this.handleError)
-    )
-  }
-
   handleError(err: HttpErrorResponse) {
     let errMessage = "";
     if (err.error instanceof ErrorEvent) {

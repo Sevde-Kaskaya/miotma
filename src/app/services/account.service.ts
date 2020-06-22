@@ -19,6 +19,23 @@ export class AccountService {
     })
   }
 
+  strToken : string = "4sI2lYd7Q3IWP1yEc960k7enkaWdRgHR"
+  strToken1: string = "80RdynqVVemsS2F7rwGOoAGFfXJBN8nm"
+
+getUsers() : Observable<User[]>{
+  var reqHeader = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer' + ' ' + this.strToken,
+    'Accept': 'application/json',
+ });
+
+  return this.http.get<User[]>('http://piot.diginova.com.tr/api/user/users', { headers: reqHeader }).pipe(
+    tap(data =>console.log(JSON.stringify(data))),
+    catchError(this.handleError)
+  )
+
+}
+
   getUser(user): Observable<User[]> {
     return this.http
     .get<User[]>(this.path + "?name="+user.name+"&password="+user.password)

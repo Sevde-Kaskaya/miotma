@@ -12,7 +12,7 @@
   <ion-item>
     <div id="email-div">
     <ion-label color="light" position="floating">Email</ion-label>
-    <ion-input color="light"  [(ngModel)]="user.name"></ion-input>
+    <ion-input color="light"  [(ngModel)]="user.username"></ion-input>
   </div>
   </ion-item>
 
@@ -24,7 +24,7 @@
   </ion-item>
 
     <div id="login-div">
-    <ion-button shape="round"color="primary" expand="block" (click)="login(user.id)">Login</ion-button>
+    <ion-button shape="round"color="primary" expand="block" (click)="login(user)">Login</ion-button>
   </div>
 
 </ion-content> 

@@ -69,9 +69,6 @@ export class HomePage implements OnInit {
     this.navCtrl.navigateRoot('/projectdetail');
   }
 
-  getMyAppsPage(){
-    this.navCtrl.navigateRoot('/myapp');
-  }
 }
 
 

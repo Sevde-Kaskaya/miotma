@@ -32,17 +32,20 @@ export class LoginPage implements OnInit {
   }
 
   login(user) {
-    this.accountService.getUser(this.user).subscribe(data => {
-      this.check_user = data;
-      if (this.check_user.length == 0) {
-        this.alertService.presentToast("This user not found!");
-      } else {
+    this.accountService.getUsers().subscribe(data => {
+      for(let i=0; i<data.length;i++){
+      if (data[i].username == this.user.username) {
+        console.log(data[i].username)
         this.accountService.logIn();
-        this.user_id = this.check_user[0].id
+        this.user_id = data[i].id
         localStorage.setItem("user_id", String(this.user_id))
        this.navCtrl.navigateRoot('/home');
+      } else {
+        this.alertService.presentToast("This user not found!");
       }
+    }
     })
+
   }
 
   cancel() {
