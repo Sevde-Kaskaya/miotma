@@ -12,24 +12,83 @@ export class MyappService {
 
   constructor(private http: HttpClient) { }
 
-  app_path = "http://localhost:3000/app";
-  app_projects_PATH = "http://localhost:3000/app_projects";
-  project_path = "http://localhost:3000/projects";
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  api_appPath = "http://piot.diginova.com.tr/api/device/apps"
+  api_appprojectsPath = "http://piot.diginova.com.tr/api/device/appprojects"
+
+  getApps(): Observable<Myapp[]> {
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+    return this.http.get<Myapp[]>(this.api_appPath, { headers: reqHeader }).pipe(
+      tap(data =>console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    )
   }
 
-  getApps(user_id): Observable<Myapp[]> {
-    return this.http
-      .get<Myapp[]>(this.app_path + "?user_id=" + user_id)
-      .pipe(
-        catchError(this.handleError)
-      )
+  async createApp(myapp){
+
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+
+   let body =  "name=" + myapp.name + "&user_id=" + localStorage.getItem("user_id");
+
+    return this.http.post<Myapp>(this.api_appPath, body, { headers: reqHeader })
+    .pipe(
+      catchError(this.handleError)
+    ).toPromise();
+
   }
 
-  async getApp(app_id){
+  async createAppProjects(appprojects){
+
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+
+   let body =  "project_id=" + appprojects.project_id + "&app_id=" + appprojects.app_id + "&user_id=" + localStorage.getItem("user_id");
+
+    return this.http.post<Appprojects>(this.api_appprojectsPath, body, { headers: reqHeader })
+    .pipe(
+      catchError(this.handleError)
+    ).toPromise();
+  }
+
+ async getAppToAppID(app_id){
+
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+    return this.http.get<Myapp>(this.api_appPath + "/" + app_id, { headers: reqHeader }).pipe(
+      tap(data =>console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    ).toPromise()
+
+  }
+
+  async getAppProjects(app_id){
+
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+    return this.http.get<Project[]>(this.api_appprojectsPath + "?app_id=" + app_id, { headers: reqHeader }).pipe(
+      tap(data =>console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    ).toPromise()
+
+  }
+
+ /* async getApp(app_id){
     return this.http
       .get<Myapp>(this.app_path + "?id=" + app_id)
       .pipe(
@@ -43,33 +102,7 @@ export class MyappService {
       .pipe(
         catchError(this.handleError)
       ).toPromise()
-  }
-
-  async createApp(myapp){
-    return this.http
-      .post<Myapp>(this.app_path, JSON.stringify(myapp), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      ).toPromise();
-  }
-
-  async createAppProjects(appprojects){
-    return this.http
-      .post<Appprojects>(this.app_projects_PATH, JSON.stringify(appprojects), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      ).toPromise();
-  }
-
-  async getProject(project_id){
-    return this.http
-    .get<Project>(this.project_path + "?id="+ project_id) 
-    .pipe(
-      catchError(this.handleError)
-    ).toPromise();
-  }
+  }*/
 
   handleError(err: HttpErrorResponse) {
     let errMessage = "";

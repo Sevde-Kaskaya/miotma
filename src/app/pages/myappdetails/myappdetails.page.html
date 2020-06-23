@@ -7,21 +7,8 @@
 
 <ion-content>
 
-  
-
-  
-    <ion-slides [options]="sliderConfig">
-      
-      <ion-slide *ngFor="let app_project of app_projects" >
-         <ion-label color="medium">{{app_project.id}}</ion-label>
-      </ion-slide>
-    </ion-slides>
-
-    <ion-slides [options]="sliderConfig">
-      
-      <ion-slide *ngFor="let project of projects" >
-         <ion-label color="medium">{{project.name}}</ion-label>
-      </ion-slide>
-    </ion-slides>
+  <ion-item no-lines color="#0000" *ngFor="let project of projects" (click)="getProjectDetails(project)" >
+    <ion-label color="medium">{{project.name}}</ion-label>
+  </ion-item>
 
 </ion-content>

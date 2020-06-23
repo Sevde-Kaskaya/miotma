@@ -75,7 +75,7 @@ export class CreateappPage implements OnInit {
       let createdproject = await this.myappService.createAppProjects(appProject);
     }
     this.alertService.presentToast("App created..");
-    this.navCtrl.navigateForward('/myapp');
+   this.navCtrl.navigateForward('/myapp');
   }
 
   cancel() {
