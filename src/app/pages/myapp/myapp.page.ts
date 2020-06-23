@@ -40,13 +40,16 @@ export class MyappPage implements OnInit {
     //let url = '/myappdetails/' + app_id
     //this.router.navigateByUrl(url);
 
+    localStorage.setItem("app_id",app_id)
+    this.router.navigate(['/myappdetails']);
+    /*
    let navigationExtras: NavigationExtras = {
       queryParams: {
         special: JSON.stringify(app_id)
       }
     };
     this.router.navigate(['/myappdetails'], navigationExtras);
-
+*/
   }
 
   logOut() {

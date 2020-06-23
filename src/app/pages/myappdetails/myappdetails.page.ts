@@ -27,12 +27,12 @@ export class MyappdetailsPage implements OnInit {
     private devicesService: DeviceService) {
 
     this.my_app = new Myapp();
-    this.route.queryParams.subscribe(params => {
+   /* this.route.queryParams.subscribe(params => {
       if (params && params.special) {
         this.app_id = JSON.parse(params.special);
       }
-    });
-
+    });*/
+    this.app_id = Number(localStorage.getItem("app_id"))
   }
   ngOnInit() {  }
 
@@ -46,7 +46,7 @@ export class MyappdetailsPage implements OnInit {
   }
   
   async getProjectDetails(project){
-   /* this.devices = await this.deviceService.getDevices()
+    this.devices = await this.devicesService.getDevices()
     localStorage.removeItem("device_id");
     await this.asyncForEach(this.devices, async (num) => {
       await this.waitFor(50)
@@ -54,9 +54,8 @@ export class MyappdetailsPage implements OnInit {
         localStorage.setItem("device_id",  String(num.id));
       }
     })
-    console.log(localStorage.getItem("device_id"))*/
-    localStorage.setItem("device_id",  "1");
     localStorage.setItem("project_id", String(project.id));
+    localStorage.setItem("lastPage","AppDetail");
     this.navCtrl.navigateRoot('/projectdetail');
 
   }

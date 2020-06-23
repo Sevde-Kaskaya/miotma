@@ -151,7 +151,13 @@ export class ProjectdetailPage implements OnInit {
       this.alertService.showLogOutAlert();
     }
     cancel() {
-      this.navCtrl.navigateForward('/home');
+
+      console.log(localStorage.getItem("lastPage"))
+      if(localStorage.getItem("lastPage")==="Home"){
+        this.navCtrl.navigateForward('/home');
+      }else if(localStorage.getItem("lastPage")==="AppDetail"){
+        this.navCtrl.navigateForward('/myappdetails');
+      }
     }
 
 }

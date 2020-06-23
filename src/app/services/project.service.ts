@@ -29,7 +29,7 @@ export class ProjectService {
       'Accept': 'application/json'
     });
     return this.http.get<Project[]>('http://piot.diginova.com.tr/api/device/projects?user_id='+user_id, { headers: reqHeader }).pipe(
-      tap(data =>console.log(JSON.stringify(data))),
+      tap(data =>JSON.stringify(data)),
       catchError(this.handleError)
     ).toPromise();
   }

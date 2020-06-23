@@ -79,9 +79,13 @@ export class HomePage implements OnInit {
     })
     console.log(localStorage.getItem("device_id"))
     localStorage.setItem("project_id", String(prj.id));
+    localStorage.setItem("lastPage","Home");
     this.navCtrl.navigateRoot('/projectdetail');
   }
 
+  goApp(){
+    this.navCtrl.navigateRoot('/myapp');
+  }
 }
 
 
