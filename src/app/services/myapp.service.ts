@@ -60,13 +60,33 @@ export class MyappService {
     ).toPromise();
   }
 
-  /*getApps1(user_id): Observable<Myapp[]> {
-    return this.http
-      .get<Myapp[]>(this.app_path + "?user_id=" + user_id)
-      .pipe(
-        catchError(this.handleError)
-      )
-  }*/
+ async getAppToAppID(app_id){
+
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+    return this.http.get<Myapp>(this.api_appPath + "/" + app_id, { headers: reqHeader }).pipe(
+      tap(data =>console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    ).toPromise()
+
+  }
+
+  async getAppProjects(app_id){
+
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+    return this.http.get<Project[]>(this.api_appprojectsPath + "?app_id=" + app_id, { headers: reqHeader }).pipe(
+      tap(data =>console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    ).toPromise()
+
+  }
 
  /* async getApp(app_id){
     return this.http

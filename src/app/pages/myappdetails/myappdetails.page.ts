@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Myapp } from 'src/app/models/myapp';
 import { MyappService } from 'src/app/services/myapp.service';
 import { Appprojects } from 'src/app/models/appprojects';
+import { DeviceService } from 'src/app/services/device.service';
+import {Device} from 'src/app/models/device'
 
 @Component({
   selector: 'app-myappdetails',
@@ -14,48 +16,57 @@ import { Appprojects } from 'src/app/models/appprojects';
 })
 export class MyappdetailsPage implements OnInit {
 
-  app: any[];
   my_app: Myapp;
-  current_app: any;
   app_id: number;
-
   projects: Project[];
-  user_id: Number;
-  app_projects: Appprojects[];
-  projects1: Array<Project> = new Array<Project>()
-  app_name: string;
+  devices:Device[];
 
   constructor(private navCtrl: NavController,
-    private projectService: ProjectService,
     private route: ActivatedRoute,
-    private myAppService: MyappService) {
+    private myAppService: MyappService,
+    private devicesService: DeviceService) {
 
-    this.user_id = Number(localStorage.getItem("user_id"));
     this.my_app = new Myapp();
-    this.app_id = this.route.snapshot.data['app'];
-  }
+    this.route.queryParams.subscribe(params => {
+      if (params && params.special) {
+        this.app_id = JSON.parse(params.special);
+      }
+    });
 
-  sliderConfig = {
   }
+  ngOnInit() {  }
 
-  ngOnInit() {
-      this.getApp();
-      this.getProjects();
+  ionViewWillEnter() {   
+    this.getMyAppDetail();
   }
-
+ 
+  async getMyAppDetail() : Promise<void> {
+    this.my_app = await this.myAppService.getAppToAppID(this.app_id);
+    this.projects = await this.myAppService.getAppProjects(this.app_id)
+  }
   
-  async getApp() {
-   // this.my_app = await this.myAppService.getApp(this.app_id)
+  async getProjectDetails(project){
+   /* this.devices = await this.deviceService.getDevices()
+    localStorage.removeItem("device_id");
+    await this.asyncForEach(this.devices, async (num) => {
+      await this.waitFor(50)
+      if (num.project_id == project.id) {
+        localStorage.setItem("device_id",  String(num.id));
+      }
+    })
+    console.log(localStorage.getItem("device_id"))*/
+    localStorage.setItem("device_id",  "1");
+    localStorage.setItem("project_id", String(project.id));
+    this.navCtrl.navigateRoot('/projectdetail');
+
   }
 
-  async getProjects() {
-  /*  this.app_projects = await this.myAppService.getAppProjects(this.app_id);
-    console.log(this.app_projects)
-    for (let i = 0; i < this.app_projects.length; i++) {
-      await this.myAppService.getProject(this.app_projects[i].project_id)
-        .then((result) => this.projects1.push(result))
+  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+
+  async asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array)
     }
-    console.log(this.projects1)*/
   }
 
   cancel() {
