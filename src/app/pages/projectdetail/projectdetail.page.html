@@ -12,7 +12,7 @@
   <ion-content padding center text-center> 
     <div class="ion-padding">
         <ion-list shape="round"  *ngFor = "let property of property_data">
-      <ion-button (click)="toggleColor(property)" ion-button [color]="property.description">
+      <ion-button (click)="toggleColor(property)" ion-button [color]="light">
         <ion-label>LED  {{property.value}} </ion-label>
       </ion-button>
     </ion-list>

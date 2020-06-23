@@ -1,27 +1,27 @@
-<ion-content fullscreen="true">
-  <ion-header>
-    <ion-button fill="clear" size="large" (click)="cancel()">
-      <ion-icon name="arrow-back-outline"></ion-icon>
-    </ion-button>
-    <ion-title color="light">{{my_app.name}}</ion-title>
-  </ion-header>
+<ion-header collapse="condense">
+  <ion-button fill="clear" size="large" (click)="cancel()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-button>
+  <ion-title color="light">{{my_app.name}}</ion-title>
+</ion-header>
 
-  <ion-content>
+<ion-content>
 
+  
+
+  
     <ion-slides [options]="sliderConfig">
-
-      <ion-slide *ngFor="let project of projectsArray">
-        <ion-label color="medium">{{project.name}}</ion-label>
+      
+      <ion-slide *ngFor="let app_project of app_projects" >
+         <ion-label color="medium">{{app_project.id}}</ion-label>
       </ion-slide>
     </ion-slides>
 
     <ion-slides [options]="sliderConfig">
-
-      <ion-slide *ngFor="let app_project of app_projects">
-        <ion-label color="medium">{{app_project.project_id}}</ion-label>
+      
+      <ion-slide *ngFor="let project of projects" >
+         <ion-label color="medium">{{project.name}}</ion-label>
       </ion-slide>
     </ion-slides>
-
-  </ion-content>
 
 </ion-content>

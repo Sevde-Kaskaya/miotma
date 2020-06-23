@@ -26,6 +26,7 @@ export class LoginPage implements OnInit {
     this.user = new User();
   }
 
+  
   ngOnInit() { 
     this.menuCtrl.enable(false);
 
@@ -37,12 +38,10 @@ export class LoginPage implements OnInit {
       if (data[i].username == this.user.username) {
         console.log(data[i].username)
         this.accountService.logIn();
-        this.user_id = data[i].id
-        localStorage.setItem("user_id", String(this.user_id))
+        localStorage.setItem("user_id", String(data[i].id))
+        localStorage.setItem("user_token", String(data[i].access_token))
        this.navCtrl.navigateRoot('/home');
-      } else {
-        this.alertService.presentToast("This user not found!");
-      }
+      } 
     }
     })
 

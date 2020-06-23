@@ -41,10 +41,6 @@ export class AppComponent implements OnInit {
       }
     };
     this.router.navigate(['widget'], navigationExtras);
-    /* -------------------------CALISIYOR-----------------------------------------
-    localStorage.setItem("widget", String(1)) //led
-    this.router.navigate(['/widget']);
-   -------------------------CALISIYOR-----------------------------------------*/
   }
 
   selectGraph(){
@@ -54,10 +50,6 @@ export class AppComponent implements OnInit {
       }
     };
     this.router.navigate(['widget'], navigationExtras);
-     /* -------------------------CALISIYOR-----------------------------------------
-    localStorage.setItem("widget", String(2)) //graph
-    this.router.navigate(['/widget']);
-      -------------------------CALISIYOR-----------------------------------------*/
 }
 
 }

@@ -20,20 +20,13 @@ export class ProjectService {
     })
   }
 
-  strToken2 : string = "4sI2lYd7Q3IWP1yEc960k7enkaWdRgHR"
-  strToken1: string = "80RdynqVVemsS2F7rwGOoAGFfXJBN8nm"
   user_token : string;
 
   getUserProjects(user_id): Observable<Project[]> {
-    if(user_id == 1) { //frat57
-      this.user_token = this.strToken1
-    }
-    if(user_id == 2) { //test_ha
-      this.user_token = this.strToken2
-    }
+
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer' + ' ' + this.user_token,
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
       'Accept': 'application/json'
     });
     return this.http.get<Project[]>('http://piot.diginova.com.tr/api/device/projects?user_id='+user_id, { headers: reqHeader }).pipe(
@@ -42,28 +35,6 @@ export class ProjectService {
     )
   }
 
-  getProject(prj_id): Observable<Project[]> {
-    var reqHeader = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer' + ' ' + this.strToken2,
-      'Accept': 'application/json'
-    });
-
-    return this.http.get<Project[]>('http://piot.diginova.com.tr/api/device/projects?id=' + prj_id, { headers: reqHeader }).pipe(
-      tap(data =>console.log(JSON.stringify(data))),
-      catchError(this.handleError)
-    )
-  }
-
-  /*getProject(prj_id): Observable<Project[]> {
-    return this.http
-    .get<Project[]>(this.path + "?id="+ prj_id) 
-    .pipe(
-      tap(data =>console.log(JSON.stringify)),
-      catchError(this.handleError)
-    )
-  }
-*/
   createProject(project): Observable<Project>{
     return this.http
     .post<Project>(this.path, JSON.stringify(project), this.httpOptions)
@@ -72,6 +43,21 @@ export class ProjectService {
       catchError(this.handleError)
     )
   }
+ /* async createProject(project) {
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("userToken1"),
+      'Accept': 'application/json'
+    });
+
+   let body =  "name=" + project.name + "&app_config=" + "wifi" + "&user_id=" + project.user_id;
+
+    return this.http.post<Project>('http://piot.diginova.com.tr/api/device/projects', body, { headers: reqHeader })
+    .pipe(
+      catchError(this.handleError)
+    ).toPromise();
+  }
+*/
 
   updateProject(prj): Observable<Project> {
     return this.http

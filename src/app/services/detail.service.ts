@@ -10,50 +10,31 @@ export class DetailService {
 
   constructor(private http: HttpClient) { }
 
-  path = "http://localhost:3000/detail";
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
-
-  strToken2 : string = "4sI2lYd7Q3IWP1yEc960k7enkaWdRgHR"
-  strToken1: string = "80RdynqVVemsS2F7rwGOoAGFfXJBN8nm"
-  user_token : string;
-
   async getDetail(prj_id){
-    if(localStorage.getItem("user_id") == "1") { //frat57
-      this.user_token = this.strToken1
-    }
-    if(localStorage.getItem("user_id") == "2") { //test_ha
-      this.user_token = this.strToken2
-    }
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer' + ' ' + this.user_token,
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
       'Accept': 'application/json'
     });
-    return this.http.get<Detail[]>('http://piot.diginova.com.tr/api/device/details/'+prj_id, { headers: reqHeader }).pipe(
+    return this.http.get<Detail[]>('http://piot.diginova.com.tr/api/device/details?project_id='+prj_id, { headers: reqHeader }).pipe(
       tap(data =>console.log(JSON.stringify(data))),
       catchError(this.handleError)
     ).toPromise()
   }
-/*
-  async getDetail(prj_id){
-    return this.http
-      .get<Detail[]>(this.path + "?project_id=" + prj_id)
-      .pipe(
-        catchError(this.handleError)
-      ).toPromise()
-  }*/
 
-  createDetail(detail): Observable<Detail>{
-    return this.http
-    .post<Detail>(this.path, JSON.stringify(detail), this.httpOptions)
+  async createDetail(detail) {
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+
+   let body =  "variable_id=" + detail.variable_id + "&properties_id=" + detail.properties_id + "&widget_id=" + detail.widget_id + "&project_id=" + detail.project_id;
+
+    return this.http.post<Detail>('http://piot.diginova.com.tr/api/device/details?project_id=' + detail.project_id, body, { headers: reqHeader })
     .pipe(
-      retry(2),
       catchError(this.handleError)
-    )
+    ).toPromise();
   }
 
   handleError(err: HttpErrorResponse) {

@@ -77,10 +77,10 @@ export class WidgetPage implements OnInit {
 
   async selectProp() {
       this.property = await this.propertiesService.getPropertywithId(this.choose_prop);
-      this.property[0].description = this.choose_color
+    //  this.property[0].description = this.choose_color
       console.log(this.property)
-      this.data = await this.propertiesService.updateProperty(this.property[0])
-        console.log(this.data)
+    //  this.data = await this.propertiesService.updateProperty(this.property[0])
+      //  console.log(this.data)
     
     this.addDetail(Number(localStorage.getItem("led_id")), 0, this.choose_prop);
     console.log("id: " + this.choose_prop + ", color: "+ this.choose_color)
@@ -92,16 +92,14 @@ export class WidgetPage implements OnInit {
     this.router.navigate(['projectdetail']);
   }
 
-  addDetail(widget_id, var_id, prop_id) {
+  async addDetail(widget_id, var_id, prop_id) {
     this.detail = new Detail();
     this.detail.variable_id = Number(var_id);
     this.detail.properties_id = Number(prop_id);
     this.detail.widget_id = widget_id;
     this.detail.project_id = this.prj_id;
     console.log(this.detail)
-    this.detailService.createDetail(this.detail).subscribe((response) => {
-      console.log(response)
-  });
+    await this.detailService.createDetail(this.detail)
   }
 
   logOut() {

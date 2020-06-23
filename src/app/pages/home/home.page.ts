@@ -64,7 +64,7 @@ export class HomePage implements OnInit {
   }
 
   goProject(prj) {
-    localStorage.setItem("device_id",  String(prj.device))
+    localStorage.setItem("device_id",  "1")
     localStorage.setItem("project_id", String(prj.id))
     this.navCtrl.navigateRoot('/projectdetail');
   }

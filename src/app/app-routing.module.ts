@@ -24,13 +24,12 @@ const routes: Routes = [
   },
   { path: 'createapp', loadChildren: () => import('./pages/createapp/createapp.module').then(m => m.CreateappPageModule) },
   { path: 'myapp', loadChildren: () => import('./pages/myapp/myapp.module').then(m => m.MyappPageModule) },
- /* {
+  {
     path: 'myappdetails/:app_id',
     resolve:
       { app: ResolverService },
     loadChildren: () => import('./pages/myappdetails/myappdetails.module').then(m => m.MyappdetailsPageModule)
-  },*/
-  { path: 'myappdetails', loadChildren: () => import('./pages/myappdetails/myappdetails.module').then(m => m.MyappdetailsPageModule) },
+  },
   {
     path: 'widget',
     loadChildren: () => import('./pages/widget/widget.module').then( m => m.WidgetPageModule)

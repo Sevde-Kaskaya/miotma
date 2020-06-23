@@ -19,13 +19,10 @@ export class AccountService {
     })
   }
 
-  strToken : string = "4sI2lYd7Q3IWP1yEc960k7enkaWdRgHR"
-  strToken1: string = "80RdynqVVemsS2F7rwGOoAGFfXJBN8nm"
-
 getUsers() : Observable<User[]>{
   var reqHeader = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer' + ' ' + this.strToken,
+    'Authorization': 'Bearer' + ' ' + '80RdynqVVemsS2F7rwGOoAGFfXJBN8nm',
     'Accept': 'application/json',
  });
 
@@ -33,18 +30,7 @@ getUsers() : Observable<User[]>{
     tap(data =>console.log(JSON.stringify(data))),
     catchError(this.handleError)
   )
-
 }
-
-  getUser(user): Observable<User[]> {
-    return this.http
-    .get<User[]>(this.path + "?name="+user.name+"&password="+user.password)
-    .pipe(
-      tap(data =>console.log(JSON.stringify)),
-      catchError(this.handleError)
-    )
-  }
-
   createUser(user): Observable<User>{
     return this.http
     .post<User>(this.path, JSON.stringify(user), this.httpOptions)

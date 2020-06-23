@@ -11,18 +11,15 @@ import { Variable } from '../models/variable';
 export class VariableService {
 
   constructor(private http: HttpClient) { }
-
-  path = "http://localhost:3000/variable";
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
-
+    
   async getVariable(device_id){
-    return this.http
-    .get<Variable[]>(this.path + "?device_id="+ device_id) 
-    .pipe(
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+    return this.http.get<Variable[]>('http://piot.diginova.com.tr/api/device/variables?device_id='+device_id, { headers: reqHeader }).pipe(
+      tap(data =>console.log(JSON.stringify(data))),
       catchError(this.handleError)
     ).toPromise();
   }

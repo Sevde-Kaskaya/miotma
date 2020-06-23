@@ -61,8 +61,8 @@ export class ProjectdetailPage implements OnInit {
   }
 
   name : string;
-l:number =0;
-names: string[];
+  l:number =0;
+  names: string[];
   async showProjectDetail(): Promise<void> {
     this.details = await this.detailService.getDetail(this.prj_id)
     console.log(this.details)
@@ -130,17 +130,18 @@ names: string[];
   }
   
   async toggleColor(property) {
+    property.device_id = Number(localStorage.getItem("device_id"))
     var true_color = property.description
       if( property.value === 'true') { 
-        property.description = 'light'
+       property.description = 'light'
         property.value = "false"
-        await this.propertiesService.updateProperty(property)
+        await this.propertiesService.updatePropertyValue(property)
         .then((result) => console.log(result))
         
       } else {
         property.description  = 'dark'
         property.value = "true"
-        await this.propertiesService.updateProperty(property)
+        await this.propertiesService.updatePropertyValue(property)
         .then((result) => console.log(result))
       }
   }
