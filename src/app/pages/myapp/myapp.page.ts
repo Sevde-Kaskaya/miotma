@@ -31,7 +31,7 @@ export class MyappPage implements OnInit {
 
   appLoad() {
     //console.log(this.user_id)
-    this.MyappService.getApps(this.user_id).subscribe((data) => {
+    this.MyappService.getApps().subscribe((data) => {
      // console.log(data);
       this.app = data;
     })

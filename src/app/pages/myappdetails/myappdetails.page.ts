@@ -45,42 +45,18 @@ export class MyappdetailsPage implements OnInit {
 
   
   async getApp() {
-    this.my_app = await this.myAppService.getApp(this.app_id)
+   // this.my_app = await this.myAppService.getApp(this.app_id)
   }
 
   async getProjects() {
-    this.app_projects = await this.myAppService.getAppProjects(this.app_id);
+  /*  this.app_projects = await this.myAppService.getAppProjects(this.app_id);
     console.log(this.app_projects)
     for (let i = 0; i < this.app_projects.length; i++) {
       await this.myAppService.getProject(this.app_projects[i].project_id)
         .then((result) => this.projects1.push(result))
     }
-    console.log(this.projects1)
+    console.log(this.projects1)*/
   }
-
-  /*
-  ionViewCanEnter() {
-    console.log("1")
-  }
-  ionViewDidLoad() {
-    console.log("2")
-  }
-  ionViewWillEnter() {
-    console.log("3")
-  }
-  ionViewDidEnter() {
-    console.log("4")
-  }
-  ionViewCanLeave() {
-    console.log("5")
-  }
-  ionViewWillLeave() {
-    console.log("6")
-  }
-  ionViewWillUnload() {
-    console.log("7")
-  }
-  */
 
   cancel() {
     this.navCtrl.navigateForward('/myapp');
