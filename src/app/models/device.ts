@@ -4,4 +4,5 @@ export class Device {
     api: string;
     description: string;
     type_id: string;
+    project_id: string;
 }

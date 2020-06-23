@@ -50,10 +50,10 @@ export class CreateappPage implements OnInit {
   }
 
   getProjects() {
-    this.projectService.getUserProjects(this.user_id).subscribe((data) => {
+    /*this.projectService.getUserProjects(this.user_id).subscribe((data) => {
       this.projects = data;
       console.log(this.projects)
-    })
+    })*/
   }
 
   async createApp() {

@@ -15,8 +15,11 @@ import { Device } from 'src/app/models/device';
 export class NewprojectPage implements OnInit {
 
   devices: Device[];
+  enable_devices: Array<Device> = [];
   project: Project;
   user_id: number;
+  device: Device;
+  choosen_device: number;
 
   constructor(
     private navCtrl: NavController,
@@ -26,6 +29,7 @@ export class NewprojectPage implements OnInit {
     private deviceService: DeviceService
   ) {
     this.project = new Project();
+    this.device = new Device();
     this.user_id = Number(localStorage.getItem("user_id"));
   
   }
@@ -40,20 +44,40 @@ export class NewprojectPage implements OnInit {
 
   }
 
-  createProject() {
-    this.project.user_id = this.user_id
-    this.projectService.createProject(this.project).subscribe((response) => {
-      this.alertService.presentToast("Project created..");
-      this.projectService.created();
-      this.navCtrl.navigateRoot('/home');
-    })
+  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+  async asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array)
+    }
   }
 
-  getDevices() {
-    this.deviceService.getDevices().subscribe(data => {
-      this.devices = data
+  async createProject() {
+    this.project.user_id = this.user_id
+    await this.projectService.createProject(this.project).then(async (response) => {
+      this.alertService.presentToast("Project created..");
+      this.projectService.created();
+      this.setProjectToDevice(response.id);
     })
+   
+    this.navCtrl.navigateRoot('/home');
   }
+
+  async setProjectToDevice(prj_id){
+    console.log(this.choosen_device)
+    await this.deviceService.updateDevice(this.choosen_device, prj_id);
+  }
+
+  async getDevices() {
+    console.log("get devices")
+    this.devices = await this.deviceService.getDevices();
+      await this.asyncForEach(this.devices, async (num) => {
+        await this.waitFor(50)
+        if (num.project_id == 0) {
+          console.log("prj yok")
+          this.enable_devices.push(num);
+        }
+      })
+    }
 
   cancel() {
     this.navCtrl.navigateRoot('/home');

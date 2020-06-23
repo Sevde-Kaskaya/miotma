@@ -63,12 +63,13 @@ export class ProjectdetailPage implements OnInit {
   name : string;
   l:number =0;
   names: string[];
+
   async showProjectDetail(): Promise<void> {
     this.details = await this.detailService.getDetail(this.prj_id)
     console.log(this.details)
     await this.asyncForEach(this.details, async (num) => {
       await this.waitFor(50)
-      if (num.properties_id != 0) {
+      if (num.properties_id != 0) { //led
         this.project_prop.push(num.properties_id)
         this.property_data = new Array<Properties>();
         for (let j = 0; j < this.project_prop.length; j++) {
@@ -80,7 +81,7 @@ export class ProjectdetailPage implements OnInit {
         }
       }
 
-      if (num.variable_id != 0) {
+      if (num.variable_id != 0) { //graphic
         this.project_var.push(num.variable_id)
         this.variable_data = new Array<Data>();
         this.variable_data = await this.dataService.getVariableData(num.variable_id)
@@ -133,13 +134,13 @@ export class ProjectdetailPage implements OnInit {
     property.device_id = Number(localStorage.getItem("device_id"))
     var true_color = property.description
       if( property.value === 'true') { 
-       property.description = 'light'
+      // property.description = 'light'
         property.value = "false"
         await this.propertiesService.updatePropertyValue(property)
         .then((result) => console.log(result))
         
       } else {
-        property.description  = 'dark'
+       // property.description  = 'dark'
         property.value = "true"
         await this.propertiesService.updatePropertyValue(property)
         .then((result) => console.log(result))

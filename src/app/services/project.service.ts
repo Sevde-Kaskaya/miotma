@@ -22,8 +22,7 @@ export class ProjectService {
 
   user_token : string;
 
-  getUserProjects(user_id): Observable<Project[]> {
-
+  async getUserProjects(user_id){
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
@@ -32,21 +31,21 @@ export class ProjectService {
     return this.http.get<Project[]>('http://piot.diginova.com.tr/api/device/projects?user_id='+user_id, { headers: reqHeader }).pipe(
       tap(data =>console.log(JSON.stringify(data))),
       catchError(this.handleError)
-    )
+    ).toPromise();
   }
 
-  createProject(project): Observable<Project>{
+ /* createProject(project): Observable<Project>{
     return this.http
     .post<Project>(this.path, JSON.stringify(project), this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError)
     )
-  }
- /* async createProject(project) {
+  }*/
+  async createProject(project) {
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer' + ' ' + localStorage.getItem("userToken1"),
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
       'Accept': 'application/json'
     });
 
@@ -57,7 +56,6 @@ export class ProjectService {
       catchError(this.handleError)
     ).toPromise();
   }
-*/
 
   updateProject(prj): Observable<Project> {
     return this.http

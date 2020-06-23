@@ -27,7 +27,34 @@ export class DeviceService {
     )
   }
   
-  getDevices(): Observable<Device[]> {
+  async getDevices(){
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+    return this.http.get<Device[]>('http://piot.diginova.com.tr/api/device/devices/1', { headers: reqHeader }).pipe(
+      tap(data =>console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    ).toPromise();
+  }
+
+  async updateDevice(dev_id, project_id) {
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
+      'Accept': 'application/json'
+    });
+
+   let body = "id=" + dev_id + "&project_id=" + project_id;
+
+    return this.http.put<Device>('http://piot.diginova.com.tr/api/device/devices/'+dev_id, body, { headers: reqHeader })
+    .pipe(
+      catchError(this.handleError)
+    ).toPromise();
+  }
+
+  /*getDevices(): Observable<Device[]> {
     return this.http
     .get<Device[]>(this.path)
     .pipe(
@@ -35,7 +62,7 @@ export class DeviceService {
       catchError(this.handleError)
     )
   }
-
+*/
   handleError(err: HttpErrorResponse) {
     let errMessage = "";
     if (err.error instanceof ErrorEvent) {

@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
   data: any;
   device_name:string;
   device_id:number;
-  device:Device;
+  devices:Device[];
   id:number
 
   constructor(public loadingCntrl: LoadingController,
@@ -48,10 +48,15 @@ export class HomePage implements OnInit {
     this.alertService.showLogOutAlert();
   }
 
-  getUserProjects() {
-    this.projectService.getUserProjects(this.user_id).subscribe((data) => {
-      this.projects = data;
-    })
+  async getUserProjects() {
+    this.projects = await this.projectService.getUserProjects(this.user_id)
+  }
+  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+  
+  async asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array)
+    }
   }
 
   createProject() {
@@ -63,9 +68,17 @@ export class HomePage implements OnInit {
     this.router.navigate(['/newproject'], navigationExtras);
   }
 
-  goProject(prj) {
-    localStorage.setItem("device_id",  "1")
-    localStorage.setItem("project_id", String(prj.id))
+  async goProject(prj) {
+    this.devices = await this.deviceService.getDevices()
+    localStorage.removeItem("device_id");
+    await this.asyncForEach(this.devices, async (num) => {
+      await this.waitFor(50)
+      if (num.project_id == prj.id) {
+        localStorage.setItem("device_id",  String(num.id));
+      }
+    })
+    console.log(localStorage.getItem("device_id"))
+    localStorage.setItem("project_id", String(prj.id));
     this.navCtrl.navigateRoot('/projectdetail');
   }
 
