@@ -9,18 +9,18 @@
     <ion-title color="light">Project Detail</ion-title>
   </ion-header>
 
-  <ion-content padding center text-center> 
+  <ion-content padding center text-center>
     <div class="ion-padding">
-        <ion-list shape="round"  *ngFor = "let property of property_data">
-      <ion-button (click)="toggleColor(property)" ion-button [color]="light">
-        <ion-label>LED  {{property.value}} </ion-label>
-      </ion-button>
-    </ion-list>
+      <ion-list shape="round" *ngFor="let property of property_data">
+        <ion-button (click)="toggleColor(property)" ion-button [color]="light">
+          <ion-label>LED {{property.value}} </ion-label>
+        </ion-button>
+      </ion-list>
 
 
-    <ion-list  *ngFor = "let variable_data of project_var">
-      <canvas id = "a"></canvas>
-      <canvas id = "b"></canvas>
-    </ion-list>
+      <ion-list *ngFor="let variable_data of project_var">
+        <canvas id="a"></canvas>
+        <canvas id="b"></canvas>
+      </ion-list>
     </div>
   </ion-content>

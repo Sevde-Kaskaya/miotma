@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
-import { NavController, MenuController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { Myapp } from '../../models/myapp';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
 import { MyappService } from 'src/app/services/myapp.service';
 import { Appprojects } from 'src/app/models/appprojects';
+
 @Component({
   selector: 'app-createapp',
   templateUrl: './createapp.page.html',
   styleUrls: ['./createapp.page.scss'],
 })
+
 export class CreateappPage implements OnInit {
 
   app: Myapp;
   projects: Project[];
   user_id: number;
   app_id: number = 0;
-  app_projects: Appprojects[];
   selected_projects: Array<Project> = new Array<Project>();
 
   constructor(
     private alertService: AlertService,
     private navCtrl: NavController,
-    private menuCtrl: MenuController,
     private projectService: ProjectService,
     private myappService: MyappService) {
 
@@ -72,7 +72,7 @@ export class CreateappPage implements OnInit {
       let createdproject = await this.myappService.createAppProjects(appProject);
     }
     this.alertService.presentToast("App created..");
-   this.navCtrl.navigateForward('/myapp');
+    this.navCtrl.navigateForward('/myapp');
   }
 
   cancel() {

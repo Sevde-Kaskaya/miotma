@@ -17,7 +17,7 @@ export class DetailService {
       'Accept': 'application/json'
     });
     return this.http.get<Detail[]>('http://piot.diginova.com.tr/api/device/details?project_id='+prj_id, { headers: reqHeader }).pipe(
-      tap(data =>console.log(JSON.stringify(data))),
+      tap(data =>JSON.stringify(data)),
       catchError(this.handleError)
     ).toPromise()
   }

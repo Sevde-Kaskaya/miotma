@@ -15,15 +15,9 @@ import { Device } from 'src/app/models/device';
 })
 export class HomePage implements OnInit {
 
-  title = "Projects"
   user_id: number;
-  prj_id: number;
   projects: Project[];
-  data: any;
-  device_name:string;
-  device_id:number;
-  devices:Device[];
-  id:number
+  devices: Device[];
 
   constructor(public loadingCntrl: LoadingController,
     private alertService: AlertService,
@@ -35,12 +29,12 @@ export class HomePage implements OnInit {
 
     this.user_id = Number(localStorage.getItem("user_id"));
   }
-  
+
   ngOnInit() {
     this.menuCtrl.enable(false);
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getUserProjects();
   }
 
@@ -52,7 +46,7 @@ export class HomePage implements OnInit {
     this.projects = await this.projectService.getUserProjects(this.user_id)
   }
   waitFor = (ms) => new Promise(r => setTimeout(r, ms))
-  
+
   async asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
       await callback(array[index], index, array)
@@ -74,16 +68,16 @@ export class HomePage implements OnInit {
     await this.asyncForEach(this.devices, async (num) => {
       await this.waitFor(50)
       if (num.project_id == prj.id) {
-        localStorage.setItem("device_id",  String(num.id));
+        localStorage.setItem("device_id", String(num.id));
       }
     })
     console.log(localStorage.getItem("device_id"))
     localStorage.setItem("project_id", String(prj.id));
-    localStorage.setItem("lastPage","Home");
+    localStorage.setItem("lastPage", "Home");
     this.navCtrl.navigateRoot('/projectdetail');
   }
 
-  goApp(){
+  goApp() {
     this.navCtrl.navigateRoot('/myapp');
   }
 }

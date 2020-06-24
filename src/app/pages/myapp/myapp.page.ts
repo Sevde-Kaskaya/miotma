@@ -3,8 +3,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { NavController } from '@ionic/angular';
 import { MyappService } from 'src/app/services/myapp.service';
 import { Myapp } from '../../models/myapp';
-import { Router, NavigationExtras } from '@angular/router';
-import { TransferService } from 'src/app/services/transfer.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-myapp',
@@ -13,16 +12,12 @@ import { TransferService } from 'src/app/services/transfer.service';
 })
 export class MyappPage implements OnInit {
 
-  user_id: number;
   app: Myapp[];
 
   constructor(private alertService: AlertService,
     private navCtrl: NavController,
     private MyappService: MyappService,
-    private router: Router,
-    private transferService: TransferService) {
-
-    this.user_id = Number(localStorage.getItem("user_id"));
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -36,20 +31,8 @@ export class MyappPage implements OnInit {
   }
 
   goAppDetail(app_id) {
-   /* this.transferService.setId(app_id);*/
-    //let url = '/myappdetails/' + app_id
-    //this.router.navigateByUrl(url);
-
-    localStorage.setItem("app_id",app_id)
+    localStorage.setItem("app_id", app_id)
     this.router.navigate(['/myappdetails']);
-    /*
-   let navigationExtras: NavigationExtras = {
-      queryParams: {
-        special: JSON.stringify(app_id)
-      }
-    };
-    this.router.navigate(['/myappdetails'], navigationExtras);
-*/
   }
 
   logOut() {

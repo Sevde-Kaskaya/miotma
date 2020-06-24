@@ -27,7 +27,7 @@ getUsers() : Observable<User[]>{
  });
 
   return this.http.get<User[]>('http://piot.diginova.com.tr/api/user/users', { headers: reqHeader }).pipe(
-    tap(data =>console.log(JSON.stringify(data))),
+    tap(data =>JSON.stringify(data)),
     catchError(this.handleError)
   )
 }

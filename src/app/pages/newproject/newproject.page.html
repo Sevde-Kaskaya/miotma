@@ -17,20 +17,21 @@
         <ion-input [(ngModel)]="project.name"></ion-input>
       </ion-text>
     </ion-item>
-        
+
     <ion-item>
       <ion-text color="medium">
         <h4>
           <ion-label position="stacked">CHOOSE DEVICE<ion-text color="danger">*</ion-text>
           </ion-label>
         </h4>
-        <ion-select class= "myCustomSelect" [(ngModel)]="choosen_device" interface="action-sheet">
-          <ion-select-option   *ngFor="let dev of enable_devices" value= {{dev.id}}>id: {{dev.id}}, name: {{dev.name}}</ion-select-option>
+        <ion-select class="myCustomSelect" [(ngModel)]="choosen_device" interface="action-sheet">
+          <ion-select-option *ngFor="let dev of enable_devices" value={{dev.id}}>id: {{dev.id}}, name: {{dev.name}}
+          </ion-select-option>
         </ion-select>
       </ion-text>
     </ion-item>
-   
-    <div id= "create-div"> 
+
+    <div id="create-div">
       <ion-button shape="round" color="tertiary" expand="block" (click)="createProject()">Create Project</ion-button>
     </div>
   </ion-list>

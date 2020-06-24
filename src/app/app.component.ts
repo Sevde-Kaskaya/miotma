@@ -4,7 +4,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { DeviceService } from './services/device.service';
 import { Router, NavigationExtras } from '@angular/router';
-import { Widget } from './models/widget';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +33,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  selectLed(){
+  selectLed() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         widget: JSON.stringify(1)
@@ -43,13 +42,13 @@ export class AppComponent implements OnInit {
     this.router.navigate(['widget'], navigationExtras);
   }
 
-  selectGraph(){
+  selectGraph() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         widget: JSON.stringify(2)
       }
     };
     this.router.navigate(['widget'], navigationExtras);
-}
+  }
 
 }

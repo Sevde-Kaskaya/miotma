@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { NavController, MenuController, NavParams } from '@ionic/angular';
 import { PropertiesService } from 'src/app/services/properties.service';
@@ -16,18 +16,18 @@ import { DetailService } from 'src/app/services/detail.service';
   providers: [NavParams]
 })
 export class ProjectdetailPage implements OnInit {
-  
+
   prj_id: number;
   details: Detail[];
-
   labels: Array<string> = [];
   chart_data: Array<number> = [];
-  lineChart: any;
-
   property: Properties;
+  l: number = 0;
+  chart_ids: string[];
 
   property_data: Array<Properties> = new Array<Properties>()
   variable_data: Array<Data> = new Array<Data>()
+
   public project_prop: Array<number> = []
   public project_var: Array<number> = []
 
@@ -60,10 +60,6 @@ export class ProjectdetailPage implements OnInit {
     }
   }
 
-  name : string;
-  l:number =0;
-  names: string[];
-
   async showProjectDetail(): Promise<void> {
     this.details = await this.detailService.getDetail(this.prj_id)
     console.log(this.details)
@@ -74,10 +70,10 @@ export class ProjectdetailPage implements OnInit {
         this.property_data = new Array<Properties>();
         for (let j = 0; j < this.project_prop.length; j++) {
           await this.propertiesService.getPropertywithId(this.project_prop[j])
-          .then((result) =>  {
-            this.property = result[0]
-            this.property_data.push(this.property)
-          })
+            .then((result) => {
+              this.property = result[0]
+              this.property_data.push(this.property)
+            })
         }
       }
 
@@ -85,79 +81,74 @@ export class ProjectdetailPage implements OnInit {
         this.project_var.push(num.variable_id)
         this.variable_data = new Array<Data>();
         this.variable_data = await this.dataService.getVariableData(num.variable_id)
-        console.log(this.variable_data)
         this.labels = new Array<string>();
-        this.chart_data = new Array<number>(); 
+        this.chart_data = new Array<number>();
         for (let j = 0; j < this.variable_data.length; j++) {
           this.labels[j] = this.variable_data[j].created_at
           this.chart_data[j] = Number(this.variable_data[j].value)
         }
-        this.names = ["a","b"]
-        var ctx = document.getElementById(this.names[this.l]) //canvas
-          console.log(ctx)
-          var myChart = new Chart(ctx, {
-                type: "line",
-                data: {
-                  labels: this.labels,
-                  datasets: [
-                    {
-                      label: "variable "+num.variable_id,
-                      fill: false,
-                      lineTension: 0.1,
-                      backgroundColor: "rgba(75,192,192,0.4)",
-                      borderColor: "rgba(75, 192,192,1)",
-                      borderCapStyle: "butt",
-                      borderDash: [],
-                      borderDashOffset: 0.0,
-                      borderJoinStyle: "miter",
-                      pointBorderColor: "rgba(75,192,192,1)",
-                      pointBackgroundColor: "#fff",
-                      pointBorderWidth: 1,
-                      pointHoverRadius: 5,
-                      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                      pointHoverBorderColor: "rgba(220,220,220,1)",
-                      pointHoverBorderWidth: 2,
-                      pointRadius: 1,
-                      pointHitRadius: 10,
-                      data: this.chart_data,
-                      spanGaps: false
-                    }
-                  ]
-                }
-              });
-      this.l++;
-    }
+        this.chart_ids = ["a", "b"]
+        var ctx = document.getElementById(this.chart_ids[this.l]) //canvas
+        var myChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: this.labels,
+            datasets: [
+              {
+                label: "variable " + num.variable_id,
+                fill: false,
+                lineTension: 0.1,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75, 192,192,1)",
+                borderCapStyle: "butt",
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: "miter",
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: this.chart_data,
+                spanGaps: false
+              }
+            ]
+          }
+        });
+        this.l++;
+      }
     })
   }
-  
+
   async toggleColor(property) {
     property.device_id = Number(localStorage.getItem("device_id"))
-    var true_color = property.description
-      if( property.value === 'true') { 
-      // property.description = 'light'
-        property.value = "false"
-        await this.propertiesService.updatePropertyValue(property)
+    if (property.value === 'true') {
+      property.value = "false"
+      await this.propertiesService.updatePropertyValue(property)
         .then((result) => console.log(result))
-        
-      } else {
-       // property.description  = 'dark'
-        property.value = "true"
-        await this.propertiesService.updatePropertyValue(property)
-        .then((result) => console.log(result))
-      }
-  }
-     
-    logOut() {
-      this.alertService.showLogOutAlert();
-    }
-    cancel() {
 
-      console.log(localStorage.getItem("lastPage"))
-      if(localStorage.getItem("lastPage")==="Home"){
-        this.navCtrl.navigateForward('/home');
-      }else if(localStorage.getItem("lastPage")==="AppDetail"){
-        this.navCtrl.navigateForward('/myappdetails');
-      }
+    } else {
+      property.value = "true"
+      await this.propertiesService.updatePropertyValue(property)
+        .then((result) => console.log(result))
     }
+  }
+
+  logOut() {
+    this.alertService.showLogOutAlert();
+  }
+  cancel() {
+
+    console.log(localStorage.getItem("lastPage"))
+    if (localStorage.getItem("lastPage") === "Home") {
+      this.navCtrl.navigateForward('/home');
+    } else if (localStorage.getItem("lastPage") === "AppDetail") {
+      this.navCtrl.navigateForward('/myappdetails');
+    }
+  }
 
 }

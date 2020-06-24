@@ -18,7 +18,6 @@ export class WidgetPage implements OnInit {
 
   prj_id: number;
   device_id: number;
-  title: string;
   detail: Detail;
   data: any;
   i: number = 0;
@@ -26,11 +25,11 @@ export class WidgetPage implements OnInit {
   variables: Variable[];
   properties: Properties[];
   property: Properties;
-  choose_prop : number;
+  choose_prop: number;
   choose_var: number;
   choose_color: string;
-  prop:boolean = false;
-  var:boolean = false;
+  prop: boolean = false;
+  var: boolean = false;
 
   constructor(
     public navParams: NavParams,
@@ -76,14 +75,10 @@ export class WidgetPage implements OnInit {
 
 
   async selectProp() {
-      this.property = await this.propertiesService.getPropertywithId(this.choose_prop);
-    //  this.property[0].description = this.choose_color
-      console.log(this.property)
-    //  this.data = await this.propertiesService.updateProperty(this.property[0])
-      //  console.log(this.data)
-    
+    this.property = await this.propertiesService.getPropertywithId(this.choose_prop);
+    console.log(this.property)
     this.addDetail(Number(localStorage.getItem("led_id")), 0, this.choose_prop);
-    console.log("id: " + this.choose_prop + ", color: "+ this.choose_color)
+    console.log("id: " + this.choose_prop + ", color: " + this.choose_color)
     this.router.navigate(['projectdetail']);
   }
 

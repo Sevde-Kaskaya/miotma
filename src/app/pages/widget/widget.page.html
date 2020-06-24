@@ -32,7 +32,7 @@
             </ion-label>
           </h4>
           <ion-select class= "myCustomSelect" [(ngModel)]="choose_prop" interface="action-sheet">
-            <ion-select-option *ngFor="let property of properties" value= {{property.id}}>{{property.name}}, {{property.value}}</ion-select-option>
+            <ion-select-option *ngFor="let property of properties" value= {{property.id}}>{{property.id}}, {{property.name}}, {{property.value}}</ion-select-option>
           </ion-select>
         </ion-text>
       </ion-item>

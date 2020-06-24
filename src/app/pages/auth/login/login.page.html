@@ -11,20 +11,20 @@
 
   <ion-item>
     <div id="email-div">
-    <ion-label color="light" position="floating">Username</ion-label>
-    <ion-input color="light"  [(ngModel)]="user.username"></ion-input>
-  </div>
+      <ion-label color="light" position="floating">Username</ion-label>
+      <ion-input color="light" [(ngModel)]="user.username"></ion-input>
+    </div>
   </ion-item>
 
   <ion-item>
     <div id="password-div">
-    <ion-label color="light" position="floating">Password</ion-label>
-    <ion-input type="password" color="light" [(ngModel)]="user.password"></ion-input>
-  </div>
+      <ion-label color="light" position="floating">Password</ion-label>
+      <ion-input type="password" color="light" [(ngModel)]="user.password"></ion-input>
+    </div>
   </ion-item>
 
-    <div id="login-div">
-    <ion-button shape="round"color="primary" expand="block" (click)="login(user)">Login</ion-button>
+  <div id="login-div">
+    <ion-button shape="round" color="primary" expand="block" (click)="login()">Login</ion-button>
   </div>
 
-</ion-content> 
+</ion-content>

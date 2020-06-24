@@ -34,7 +34,7 @@ export class DeviceService {
       'Accept': 'application/json'
     });
     return this.http.get<Device[]>('http://piot.diginova.com.tr/api/device/devices/1', { headers: reqHeader }).pipe(
-      tap(data =>console.log(JSON.stringify(data))),
+      tap(data =>JSON.stringify(data)),
       catchError(this.handleError)
     ).toPromise();
   }
