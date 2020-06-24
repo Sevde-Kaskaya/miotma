@@ -48,7 +48,7 @@
  **5.** VS Code terminalinde  modülleri aktif hale getirebilmek için aşağıdaki komut çalıştırılır.
  
    ```
-   C:\Users\user\Desktop\miotma> npm -i
+   C:\Users\user\Desktop\miotma> npm i
    ```
 
  **6.** VS Code terminalinde tablo ve grafik kütüphanesini kurulur.
