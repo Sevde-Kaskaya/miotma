@@ -39,30 +39,22 @@ export class DeviceService {
     ).toPromise();
   }
 
-  async updateDevice(dev_id, project_id) {
+  async updateDevice(dev) {
+    console.log(dev)
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer' + ' ' + localStorage.getItem("user_token"),
       'Accept': 'application/json'
     });
 
-   let body = "id=" + dev_id + "&project_id=" + project_id;
+   let body = "&name=" + dev.name+ "&description=" + dev.description + "&api=" + dev.api + "&project_id=" + dev.project_id + "&type_id=" + dev.type_id;
 
-    return this.http.put<Device>('http://piot.diginova.com.tr/api/device/devices/'+dev_id, body, { headers: reqHeader })
+    return this.http.put<Device>('http://piot.diginova.com.tr/api/device/devices/'+dev.id, body, { headers: reqHeader })
     .pipe(
       catchError(this.handleError)
     ).toPromise();
   }
 
-  /*getDevices(): Observable<Device[]> {
-    return this.http
-    .get<Device[]>(this.path)
-    .pipe(
-      tap(data =>console.log(JSON.stringify)),
-      catchError(this.handleError)
-    )
-  }
-*/
   handleError(err: HttpErrorResponse) {
     let errMessage = "";
     if (err.error instanceof ErrorEvent) {

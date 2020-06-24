@@ -20,7 +20,8 @@ export class NewprojectPage implements OnInit {
   user_id: number;
   device: Device;
   choosen_device: number;
-
+  all_devices: Device[];
+  dev : Device;
   constructor(
     private navCtrl: NavController,
     private projectService: ProjectService,
@@ -29,6 +30,7 @@ export class NewprojectPage implements OnInit {
     private deviceService: DeviceService
   ) {
     this.project = new Project();
+    this.dev = new Device();
     this.device = new Device();
     this.user_id = Number(localStorage.getItem("user_id"));
   
@@ -63,9 +65,21 @@ export class NewprojectPage implements OnInit {
   }
 
   async setProjectToDevice(prj_id){
-    console.log(this.choosen_device)
-    await this.deviceService.updateDevice(this.choosen_device, prj_id);
+    this.all_devices = await this.deviceService.getDevices();
+      await this.asyncForEach(this.all_devices, async (num) => {
+        await this.waitFor(50)
+        if (num.id == this.choosen_device) {
+          this.dev.id = num.id
+          this.dev.name = num.name
+          this.dev.description = num.description
+          this.dev.api = num.api
+          this.dev.project_id = prj_id
+          this.dev.type_id = num.type_id
+          await this.deviceService.updateDevice(this.dev);
+        }
+      })
   }
+
 
   async getDevices() {
     console.log("get devices")
