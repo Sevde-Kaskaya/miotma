@@ -30,7 +30,7 @@
     "cordova-android": "^8.1.0",
     "core-js": "^2.5.4",
     "css-animator": "^2.3.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "web-animations-js": "^2.3.2",
